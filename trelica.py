@@ -19,15 +19,27 @@ label.grid (column = 0, row = 1)
 entrada_vigas = tk.Entry (root ,width=10)               # cria uma caixa de entrada do tamanho 10
 entrada_vigas.grid(column=1, row=1)                     # define a localização da caixa 
 
-botão_confirmar = tk.Button(root, text="OK", command=lambda: botão_confirmar()) # usa a função BUtton para criar um botão 
+botão_confirmar = tk.Button(root, text="OK", command=lambda: botão_confirmar()) # usa a função Button para criar um botão 
 botão_confirmar.grid(column=0, row=2)
 
-def botão_confirmar():
-    entrada_nos_int = int(entrada_nos.get())
-    entrada_vigas_int = int(entrada_vigas.get())
+def botão_confirmar():                                  # Função do botão 
+    entrada_nos_int = int(entrada_nos.get())                 
+    entrada_vigas_int = int(entrada_vigas.get())        # transformar as duas varias entradavigas e entradanos no tipo INT
+    linhas = 4                                          # váriavel auxiliar para imprimir texto 
+    int (linhas)
     
-    label3 = tk.Label(root, text=str("sexo"))
-    label3.grid(column="0", row="4")
+    for i in range(entrada_nos_int):
+        linhas = linhas + 1
+        label = tk.Label (root , text = "posição X do nó " + str(i+1) + ":")      
+        label.grid (column = 0, row = linhas)                       # Impressão do texto da posição X
+        entrada_vigas_int = tk.Entry (root ,width=10)               # cria uma caixa de entrada do tamanho 10
+        entrada_vigas_int.grid(column=1, row=linhas)  
+    
+        label = tk.Label (root , text = "posição Y do nó " + str(i+1) + ":")
+        label.grid (column = 0, row = linhas+1)
+        entrada_vigas_int2 = tk.Entry (root ,width=10)               # cria uma caixa de entrada do tamanho 10
+        entrada_vigas_int2.grid(column=1, row=linhas+1)  
+        
     return
 
 

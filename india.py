@@ -13,27 +13,27 @@ wh = int(5*sh/6)
 who = int(1*(sh-wh)/3)
 wwo = int((sw-ww)/2)
 window.minsize(800,600)
-winsize = str(ww)+'x'+str(wh)+'+'+str(wwo)+'+'+str(who)
+winsize = str(ww)+'x'+str(wh)+'+'+str(wwo)+'+'+str(who) 
 window.geometry(winsize)
 
 window.columnconfigure([0,1], weight=1)
 window.rowconfigure(1, weight=1)
 titleframe = tkinter.Frame(window, bg='gray')
-guiframe = tkinter.Frame(window, bg='green')
-graphframe = tkinter.Frame(window, bg='pink')
+guiframe = tkinter.Frame(window, bg='blue') ## serve para 
+graphframe = tkinter.Frame(window, bg='blue')
 titleframe.grid(row=0,column=0,columnspan=2,sticky='nsew')
 guiframe.grid(row=1,column=0,sticky='nsew')
 graphframe.grid(row=1,column=1,sticky='nsew')
 
 titleframe.columnconfigure(0, weight=1)
-titlelbl = tkinter.Label(titleframe, text='Finite Element Analysis of 2D Plane Truss', font=('Arial 25 bold'))
+titlelbl = tkinter.Label(titleframe, text='Analisador de treliças 2d', font=('Arial 25 bold'))
 titlelbl.grid(row=0,column=0,sticky='nsew')
 
 guiframe.columnconfigure(0, weight=1)
 guiframe.rowconfigure(0, weight=1)
 guiframe.grid_propagate(0)
 
-guicanvs = tkinter.Canvas(guiframe, bg='orange', highlightthickness=0)
+guicanvs = tkinter.Canvas(guiframe, bg='blue', highlightthickness=0)
 guivscrol = tkinter.Scrollbar(guiframe, orient='vertical', command=guicanvs.yview)
 guihscrol = tkinter.Scrollbar(guiframe, orient='horizontal', command=guicanvs.xview)
 guicanvs.grid(row=0,column=0,sticky='nsew')
@@ -55,7 +55,7 @@ containerframe.columnconfigure([0,1,2], weight=1)
 graphframe.grid_propagate(0)
 graphframe.columnconfigure(0, weight=1)
 graphframe.rowconfigure(0, weight=1)
-plotcanvs = tkinter.Canvas(graphframe, bg='pink',highlightthickness=0, width=ww/2)
+plotcanvs = tkinter.Canvas(graphframe, bg='gray',highlightthickness=0, width=ww/2)
 plotcanvs.grid(row=0,column=0,sticky='nsew')
 
 ####____________________________________________________________________________________####
@@ -264,7 +264,7 @@ def btnprs(btn):
         for buttons in buttonlist:
             buttons.configure(state='disabled')
         
-        tsnlbl = tkinter.Label(containerframe, text='Enter the total number of nodes having supports')
+        tsnlbl = tkinter.Label(containerframe, text='entre com o número de nós de suporte')
         labellist.append(tsnlbl)
         tsnlbl.grid(row=2+tn+1+te+1, column=0, sticky='nsew')
         tsnentry = tkinter.Entry(containerframe)
@@ -346,11 +346,11 @@ def btnprs(btn):
 
         count=0
         for i in range(tsupn):
-            lbl1 = tkinter.Label(containerframe, text='Enter the Node number of supported node')
+            lbl1 = tkinter.Label(containerframe, text='entre com o número do nó de suporte')
             labellist.append(lbl1)
             entry1 = tkinter.Entry(containerframe)
             entrylist.append(entry1)
-            lbl2 = tkinter.Label(containerframe, text='Enter the support type')
+            lbl2 = tkinter.Label(containerframe, text='entre com o modelo de suporte')
             labellist.append(lbl2)
             entry2 = tkinter.Entry(containerframe)
             entrylist.append(entry2)
@@ -513,7 +513,7 @@ def btnprs(btn):
         print('\n\nForce matrix of nodes\n')
         print(forceresult)
 
-        ##____________________new co ordinates of nodes____________####
+        ##____________________new coordinates of nodes____________####
 
         newxco = []
         newyco = []

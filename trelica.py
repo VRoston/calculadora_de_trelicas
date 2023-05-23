@@ -22,24 +22,26 @@ entrada_vigas.grid(column=1, row=1)                     # define a localização
 botão_confirmar = tk.Button(root, text="OK", command=lambda: botão_confirmar()) # usa a função Button para criar um botão 
 botão_confirmar.grid(column=0, row=2)
 
-posição_x = []                                          # cria uma lista para armazenar as posições X dos nós
-posição_y = []                                          # cria uma lista para armazenar as posições Y dos nós
+v_posição_x = []                                        # cria uma lista para armazenar as posições X dos nós
+v_posição_y = []                                        # cria uma lista para armazenar as posições Y dos nós
 contador_de_linhas = 4                                  # váriavel auxiliar para imprimir texto 
                                           
 
 def botão_confirmar():                                  # Função do botão 
     entrada_nos_int = int(entrada_nos.get())            # transformar a variavel entradanos no tipo INT
-    linhas = int (contador_de_linhas)                                        # transformar a variavel linhas no tipo INT
+    linhas = int (contador_de_linhas)                   # transformar a variavel linhas no tipo INT
+    
     
     for i in range(entrada_nos_int):
         linhas = linhas + 1
         label = tk.Label (root , text = "posição X e Y do nó " + str(i+1) + ":")      
         label.grid (column = 0, row = linhas)            # Impressão do texto da posição X
-        posição_x = tk.Entry (root ,width=10)            # cria uma caixa de entrada do tamanho 10
-        posição_x.grid(column=1, row=linhas)             # para a posição X do nó 
-        posição_y = tk.Entry (root ,width=10)            # cria uma caixa de entrada do tamanho 10
-        posição_y.grid(column=2, row=linhas)             # para a posição Y do nó
-        
+        entrada_x = tk.Entry (root ,width=10)            # cria uma caixa de entrada do tamanho 10
+        entrada_x.grid(column=1, row=linhas)             # para a posição X do nó 
+        entrada_y = tk.Entry (root ,width=10)            # cria uma caixa de entrada do tamanho 10
+        entrada_y.grid(column=2, row=linhas)             # para a posição Y do nó
+        v_posição_x.append(entrada_x)                    # adiciona a posição X do nó na lista v_posição_x
+        v_posição_y.append(entrada_y)                    # adiciona a posição Y do nó na lista v_posição_y  
         
     botão_confirmar = tk.Button(root, text="proximo", command=lambda: botão_proximo()) # usa a função Button para criar um botão 
     botão_confirmar.grid(column=0, row=linhas+1)

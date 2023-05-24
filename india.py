@@ -19,7 +19,7 @@ window.geometry(winsize)
 window.columnconfigure([0,1], weight=1)
 window.rowconfigure(1, weight=1)
 titleframe = tkinter.Frame(window, bg='gray')
-guiframe = tkinter.Frame(window, bg='blue') ## serve para 
+guiframe = tkinter.Frame(window, bg='blue') #
 graphframe = tkinter.Frame(window, bg='blue')
 titleframe.grid(row=0,column=0,columnspan=2,sticky='nsew')
 guiframe.grid(row=1,column=0,sticky='nsew')

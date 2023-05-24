@@ -52,7 +52,7 @@ def botão_confirmar():
         label = tk.Label (root , text = "posição X e Y do nó " + str(i+1) + ":")      
         label.grid (column = 0, row =linhas)   
 
-        entrada_x = tk.Entry (root ,width=10)                        # cria uma caixa de entrada do tamanho 10
+        entrada_x = tk.Entry()                       # cria uma caixa de entrada do tamanho 10
         entrada_x.grid(column=1, row=linhas) 
         v_posição_x.append(entrada_x)                                 # adiciona as posições X dos nós na lista v_posição_x         
         entrada_y = tk.Entry (root ,width=10)                        # cria uma caixa de entrada do tamanho 10
@@ -70,9 +70,8 @@ def botão_confirmar():
 
 def teste():
     aleatorio = botão_confirmar()                       # transformar a variavel v_posição_x no tipo INT)
-    aleatorio = aleatorio[1]  
-    #aleatorio_string = list (map (str, aleatorio))                                  
-    for i in range(5):
+    aleatorio = aleatorio[1]                                   
+    for i in range(10):
      print (aleatorio[i])
 
 

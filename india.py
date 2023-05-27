@@ -105,9 +105,12 @@ def btnprs(btn):
                 lbl.grid(row=2+i,column=0,sticky='nsew')
                 xent = tkinter.Entry(containerframe)
                 entrylist.append(xent)
+                print ("lista de entrada " + str(entrylist) + "")
+                print ("xent " + str(xent) )
                 yent = tkinter.Entry(containerframe)
                 entrylist.append(yent)
                 xent.grid(row=2+i,column=1,sticky='nsew')
+                print (xent)
                 yent.grid(row=2+i,column=2,sticky='nsew')
             btn2 = tkinter.Button(containerframe, text='Plot', command = lambda: btnprs('btn2'))
             buttonlist.append(btn2)
@@ -144,7 +147,9 @@ def btnprs(btn):
             count=0
             for i in range(inputlist[0]):
                 xco.append(float(entrylist[2+count].get()))
+                print (xco)
                 yco.append(float(entrylist[3+count].get()))
+                print (yco)
                 count = count+2
             ###________________###
             def draw():
@@ -196,6 +201,7 @@ def btnprs(btn):
                 labellist.append(lbl)
                 lbl.grid(row=2+tn+1+i, column=0, sticky='nsew')
                 snentry = tkinter.Entry(containerframe)
+                var1 = int(snentry.get())
                 entrylist.append(snentry)
                 snentry.grid(row=2+tn+1+i, column=1, sticky='nsew')
                 enentry = tkinter.Entry(containerframe)
@@ -630,7 +636,6 @@ tnety.grid(row=0,column=1,sticky='nsew')
 teety.grid(row=1,column=1,sticky='nsew')
 btn1.grid(row=0,column=2,rowspan=2,sticky='nsew')
     
-
 
 
 

@@ -70,13 +70,22 @@ def draw_cartesian_plane():
     height = plotcanvs.winfo_height()
     plotcanvs.create_line(0, height / 2, width, height / 2, fill="white", tags="cartesian_plane")
     plotcanvs.create_line(width / 2, 0, width / 2, height, fill="white", tags="cartesian_plane")
+    # Add labels for the x and y axes
+    for i in range(-10, 11):
+        x = width / 2 + i * 35
+        y = height / 2
+        plotcanvs.create_text(x, y + 10, text=str(i), fill="white", tags="cartesian_plane")
+        
+    for i in range(-10, 11):
+        x = width / 2
+        y = height / 2 - i * 35
+        plotcanvs.create_text(x - 10, y, text=str(i), fill="white", tags="cartesian_plane")
 
 # Chama a função draw_cartesian_plane sempre que o tamanho da tela muda
 plotcanvs.bind("<Configure>", lambda event: draw_cartesian_plane())
 
 # Inicializa o plano cartesiano
 draw_cartesian_plane()
-
 
 
 # caixa de entrada de dados dos nós 
@@ -147,14 +156,15 @@ def teste():
         print (v_posição_y[i])
 
 
-def botão_proximo():                                                 # função botão proximo pega os numeros de barras executa um for para criar as caixas de entrada de dados das barras               
+def botão_proximo():                                                 # função botão proximo pega os numeros de barras executa um for para criar as caixas de entrada de dados das barras 
+    global v_posição_x                                               # pega a lista v_posição_x para ser usada na função
+    global v_posição_y                                               # pega a lista v_posição_y para ser usada na função              
     entrada_vigas_int = int(entrada_vigas.get())                     # transformar as duas varias entradavigas e entradanos no tipo INT e repasa para a variavel entrada_vigas_int para ser usada na função 
     linhas = botão_confirmar()                                       # recebe a variavel linhas da função anterior botão_confirmar para continuar a contagem de linhas
-    linhas = linhas[0]                                               # zera a variavel linhas para ser usada na função
+    #linhas = [0]                                                    # zera a variavel linhas para ser usada na função
     linhas = linhas + 2                                              # adiciona 2 a variavel linhas para pular duas linhas na tela ante de imprimir a mensagem
-    tamanho_lista = len(lista_de_entradanos_x)                       # len é uma função que pega o tamanho da lista para ser usado no for 
-    print (lista_de_entradanos_x)                                    # printa a lista de entrada dos nós como teste
-    for i in range(tamanho_lista):
+    tamanho_lista = len(lista_de_entradanos_x)                       # len é uma função que pega o tamanho da lista para ser usado no for                          
+    for i in range(tamanho_lista-2):                                 # for para pegar os valores da lista de entrada dos nós e passar para a lista  v_posição_y
         v_posição_x.append(int(lista_de_entradanos_x[i].get()))      # esse funciona para pegar o valor da caixa de entrada
         print (v_posição_x[i])                                       # printa a lista de entrada dos nós como teste
     #usado em teste#aleatorio = botão_confirmar()#usado em teste#

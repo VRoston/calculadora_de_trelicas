@@ -87,16 +87,19 @@ plotcanvs.bind("<Configure>", lambda event: draw_cartesian_plane())
 # Inicializa o plano cartesiano
 draw_cartesian_plane()
 
-def cartesian_to_canvas(x, y):
- canvas_x = (x + 10) * 20
- canvas_y = (10 - y)* 20
+def draw_circle(x, y, radius, canvas):
+    # Obter a largura e altura do canvas
+    width = canvas.winfo_width()
+    height = canvas.winfo_height()
 
-    return canvas_x, canvas_y
+    # Calcular as coordenadas do canvas
+    canvas_x = width / 2 + x * 35
+    canvas_y = height / 2 - y * 35
 
-x = 3
-y = 4
-canvas_x, canvas_y = cartesian_to_canvas(x,y)
-plotcanvs.create_oval(canvas_x - 10, canvas_y - 10, canvas_x + 10, canvas_y + 10, fill="red")
+    # Desenhar o círculo no canvas
+    canvas.create_oval(canvas_x - radius, canvas_y - radius, canvas_x + radius, canvas_y + radius, fill="red")
+draw_circle()
+
 
 
 

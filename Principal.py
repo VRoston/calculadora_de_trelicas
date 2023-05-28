@@ -163,12 +163,14 @@ def botão_proximo():                                                 # função
     linhas = botão_confirmar()                                       # recebe a variavel linhas da função anterior botão_confirmar para continuar a contagem de linhas
     #linhas = [0]                                                    # zera a variavel linhas para ser usada na função
     linhas = linhas + 2                                              # adiciona 2 a variavel linhas para pular duas linhas na tela ante de imprimir a mensagem
-    tamanho_lista = len(lista_de_entradanos_x)                       # len é uma função que pega o tamanho da lista para ser usado no for                          
-    for i in range(tamanho_lista-2):                                 # for para pegar os valores da lista de entrada dos nós e passar para a lista  v_posição_y
+    tamanho_lista1 = len(lista_de_entradanos_x)                      # len é uma função que pega o tamanho da lista para ser usado no for                          
+    for i in range(tamanho_lista1-2):                                # for para pegar os valores da lista de entrada dos nós e passar para a lista  v_posição_y
         v_posição_x.append(int(lista_de_entradanos_x[i].get()))      # esse funciona para pegar o valor da caixa de entrada
         print (v_posição_x[i])                                       # printa a lista de entrada dos nós como teste
-    #usado em teste#aleatorio = botão_confirmar()#usado em teste#
-    #usado em teste#aleatorio = aleatorio[1]#usado em teste# 
+    tamanho_lista2 = len(lista_de_entradanos_y)                      # len é uma função que pega o tamanho da lista para ser usado no for
+    for i in range(tamanho_lista2-2):                                # for para pegar os valores da lista de entrada dos nós e passar para a lista  v_posição_y
+        v_posição_y.append(int(lista_de_entradanos_y[i].get()))      # esse funciona para pegar o valor da caixa de entrada
+        print (v_posição_y[i])                                       # printa a lista de entrada dos nós como teste
                                                                      
     for i in range(entrada_vigas_int):                               # for para criar as caixas de entrada de dados das barras
         linhas = linhas +1                                           # adicinado 1 a variavel linhas para pular uma linha na tela ante de imprimir a mensagem

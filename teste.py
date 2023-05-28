@@ -2,7 +2,7 @@ import math
 import numpy
 import tkinter as tk
 import customtkinter  as ctk 
-
+#se33232323232
 #                               Tamanho Da tela
 numpy.set_printoptions(3, suppress=True)
 root = ctk.CTk()                  # Cria a nossa janela

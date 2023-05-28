@@ -194,7 +194,7 @@ def botão_proximo():                                                 # função
         cordenadas_das_barras.append(entrada_barras)                 # adiciona as cordenadas das barras na lista cordenadas_das_barras
         
         
-    ## teste de merge ##
+    ## teste de merge  oi ##
     return
 
 root.mainloop() # Fim da janela

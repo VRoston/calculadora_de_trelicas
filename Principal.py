@@ -63,6 +63,9 @@ graphframe.rowconfigure(0, weight=1)
 plotcanvs = ctk.CTkCanvas(graphframe,highlightthickness=0, width=ww/2,bg='#041216')       # cores tela canvas e tamanhop
 plotcanvs.grid(row=0,column=0,sticky='nsew')
 
+ # Tamanho e largura da tela do canvas
+width = plotcanvs.winfo_width()
+height = plotcanvs.winfo_height()
 
 def draw_cartesian_plane():
     plotcanvs.delete("cartesian_plane")  # Remove linhas existentes antes de redesenhar
@@ -72,20 +75,38 @@ def draw_cartesian_plane():
     plotcanvs.create_line(width / 2, 0, width / 2, height, fill="white", tags="cartesian_plane")
     # Add labels for the x and y axes
     for i in range(-10, 11):
-        x = width / 2 + i * 35
-        y = height / 2
-        plotcanvs.create_text(x, y + 10, text=str(i), fill="white", tags="cartesian_plane")
+        if i == 0:
+            x = width / 2
+            y = height / 2
+            plotcanvs.create_text(x, y + 10, text=str(i), fill="white", tags="cartesian_plane")
+        else:
+            x = width / 2 + i * 35
+            y = height / 2
+            plotcanvs.create_text(x, y + 10, text=str(i), fill="white", tags="cartesian_plane")
         
     for i in range(-10, 11):
-        x = width / 2
-        y = height / 2 - i * 35
-        plotcanvs.create_text(x - 10, y, text=str(i), fill="white", tags="cartesian_plane")
+        if i != 0:
+            x = width / 2
+            y = height / 2 - i * 35
+            plotcanvs.create_text(x - 10, y, text=str(i), fill="white", tags="cartesian_plane")
 
 # Chama a função draw_cartesian_plane sempre que o tamanho da tela muda
 plotcanvs.bind("<Configure>", lambda event: draw_cartesian_plane())
 
 # Inicializa o plano cartesiano
 draw_cartesian_plane()
+
+
+
+
+
+def draw_circle(x, y):
+    width = plotcanvs.winfo_width()
+    height = plotcanvs.winfo_height()
+    x_coord = width / 2 + x * 35
+    y_coord = height / 2 - y * 35
+    tam = 3
+    plotcanvs.create_oval(x_coord - tam, y_coord - tam, x_coord + tam, y_coord + tam, fill="#cccfd0", tags="cartesian_plane",outline="white")
 
 
 # caixa de entrada de dados dos nós 
@@ -135,7 +156,7 @@ def botão_confirmar():                                               # função
         caixa.grid(column=2, row=linhas)                             # marcando onde ele vai ser impressa na tela
         lista_de_entradanos_y.append(caixa)                          # adicinando o valor que foi inserido na caixa de entrada a uma lista para salvar as cordenadas dos nós
                                        
-               
+    draw_circle(0,5)        
     botão_confirmar = ctk.CTkButton(containerframe, text="proximo", command=lambda: botão_proximo()) # usa a função Button para criar um botão que ativara a proxima etapa do programa que é pegar as cordenadas das barras 
     botão_confirmar.grid(column=0, row=linhas+1)
     

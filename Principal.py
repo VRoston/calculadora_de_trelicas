@@ -1,7 +1,7 @@
 import math
 import numpy
 import tkinter as tk
-import customtkinter  as ctk  #instalar no terminal usando pip install
+import customtkinter  as ctk 
 
 #                               Tamanho Da tela
 numpy.set_printoptions(3, suppress=True)
@@ -21,31 +21,31 @@ root.geometry(winsize)
                             # Configuração dos frames
 root.columnconfigure([0,1], weight=1)
 root.rowconfigure(1, weight=1)
-titleframe = ctk.CTkFrame(root,bg_color='#071e26')
-guiframe = ctk.CTkFrame(root,bg_color='#071e26') #
-graphframe = ctk.CTkFrame(root,bg_color='#071e26')
+titleframe = ctk.CTkFrame(root,bg_color='#030e11')
+guiframe = ctk.CTkFrame(root,bg_color='#030e11') #
+graphframe = ctk.CTkFrame(root,bg_color='#030e11')
 titleframe.grid(row=0,column=0,columnspan=2,sticky='nsew')
 guiframe.grid(row=1,column=0,sticky='nsew')
 graphframe.grid(row=1,column=1,sticky='nsew')
 
 titleframe.columnconfigure(0, weight=1)
-titlelbl = ctk.CTkLabel(titleframe, text='Calculadora de Treliças 2d',bg_color='#071e26',text_color='white')
+titlelbl = ctk.CTkLabel(titleframe, text='Calculadora de Treliças 2d',bg_color='#020a0d',text_color='white')
 titlelbl.grid(row=0,column=0,sticky='nsew')
 
 guiframe.columnconfigure(0, weight=1)
 guiframe.rowconfigure(0, weight=1)
 guiframe.grid_propagate(0)
 
-guicanvs = ctk.CTkCanvas(guiframe, highlightthickness=0,background='#071e26',)
-guivscrol = ctk.CTkScrollbar(guiframe, orientation='vertical', command=guicanvs.yview,)  #scrollbar esquerda
-guihscrol = ctk.CTkScrollbar(guiframe, orientation='horizontal', command=guicanvs.xview,) #scrollbar direita
+guicanvs = ctk.CTkCanvas(guiframe, highlightthickness=0,background='#030e11',)
+guivscrol = ctk.CTkScrollbar(guiframe, orientation='vertical', command=guicanvs.yview,bg_color='#030e11')  #scrollbar esquerda
+guihscrol = ctk.CTkScrollbar(guiframe, orientation='horizontal', command=guicanvs.xview,bg_color='#030e11') #scrollbar direita
 guicanvs.grid(row=0,column=0,sticky='nsew')
 guivscrol.grid(row=0,column=1,rowspan=2,sticky='nsew')
 guihscrol.grid(row=1,column=0,sticky='nsew')
 
 guicanvs.columnconfigure(0, weight=1)
 guicanvs.rowconfigure(0, weight=1)
-containerframe = ctk.CTkFrame(guicanvs,fg_color='#071e26')
+containerframe = ctk.CTkFrame(guicanvs,fg_color='#030e11')
 containerframe.grid(row=0,column=0,sticky='nsew')
 
 guicanvs.create_window((0,0), width=ww/2-17, window=containerframe, anchor='nw', tags=('canwin'))
@@ -58,7 +58,7 @@ containerframe.columnconfigure([0,1,2], weight=1)
 graphframe.grid_propagate(0)
 graphframe.columnconfigure(0, weight=1)
 graphframe.rowconfigure(0, weight=1)
-plotcanvs = ctk.CTkCanvas(graphframe,highlightthickness=0, width=ww/2,)
+plotcanvs = ctk.CTkCanvas(graphframe,highlightthickness=0, width=ww/2,bg='#041216')       # cores tela canvas
 plotcanvs.grid(row=0,column=0,sticky='nsew')
 
 
@@ -72,13 +72,13 @@ v_posição_y.clear()
 # caixa de entrada de dados dos nós 
 label = ctk.CTkLabel (containerframe , text = "Numero de nós:",text_color='white',)
 label.grid (column = 0, row = 0)
-entrada_nos = ctk.CTkEntry (containerframe ,width=100,border_color='#071e26')                              # cria uma caixa de entrada do tamanho 10
+entrada_nos = ctk.CTkEntry (containerframe ,width=100,border_color='#030e11')                              # cria uma caixa de entrada do tamanho 10
 entrada_nos.grid(column=1, row=0)
 
 # caixa de entrada de dados das barras
 label = ctk.CTkLabel(containerframe , text = "Numero de barras:",text_color='white')
 label.grid (column = 0, row = 1)
-entrada_vigas = ctk.CTkEntry (containerframe,width=100,border_color='#071e26')                            # cria uma caixa de entrada do tamanho 10
+entrada_vigas = ctk.CTkEntry (containerframe,width=100,border_color='#030e11')                            # cria uma caixa de entrada do tamanho 10
 entrada_vigas.grid(column=1, row=1)            
 
 botão_confirmar = ctk.CTkButton(containerframe, text="proximo", command=lambda: botão_confirmar()) # usa a função Button para criar um botão 

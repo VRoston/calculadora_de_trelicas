@@ -88,8 +88,8 @@ plotcanvs.bind("<Configure>", lambda event: draw_cartesian_plane())
 draw_cartesian_plane()
 
 def cartesian_to_canvas(x, y):
-canvas_x = (x + 10) * 20
-canvas_y = (10 - y * 20
+ canvas_x = (x + 10) * 20
+ canvas_y = (10 - y)* 20
 
     return canvas_x, canvas_y
 

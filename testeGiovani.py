@@ -1,10 +1,10 @@
 import math
-import numpy
+import numpy   as np
 import tkinter as tk
 import customtkinter  as ctk 
 
 #                               Tamanho Da tela
-numpy.set_printoptions(3, suppress=True)
+np.set_printoptions(3, suppress=True)
 root = ctk.CTk()                  # Cria a nossa janela
 root._set_appearance_mode('dark') 
 root.title('Calculadora de Treliçãs')

@@ -92,16 +92,12 @@ def cartesian_to_canvas(x, y):
     canvas_y = 400 - (y + 10) * 20
     return canvas_x, canvas_y
 
-# Define a function to draw a filled circle at (4, 3)
-def draw_filled_circle():
-    x = 4
-    y = 3
-    r = 20  # Radius in pixels
-    canvas_x, canvas_y = cartesian_to_canvas(x, y)
-    plotcanvs.create_oval(canvas_x - r, canvas_y - r, canvas_x + r, canvas_y + r, fill="blue")
+x = 3
+y = 4
+canvas_x, canvas_y = cartesian_to_canvas(x,y)
+plotcanvs.create_oval(canvas_x - 10, canvas_y - 10, canvas_x + 10, canvas_y + 10, fill="red")
 
-# Call the function to draw the circle
-draw_filled_circle()
+
 
 
 

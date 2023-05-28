@@ -180,7 +180,7 @@ def botão_proximo():                                                 # função
         caixa = ctk.CTkEntry (containerframe,width=100,border_color='#071e26')# cria uma caixa de entrada para pegar as cordenada do pontos
         caixa.grid(column=1, row=linhas)                             # marcando onde ele vai ser impressa na tela
         lista_de_entradanos_x.append(caixa)                          # adicinando o valor que foi inserido na caixa de entrada a uma lista para salvar as cordenadas dos nós
-        '''
+        '''    
       
         label = ctk.CTkLabel (containerframe , text = "diga entre quais nós estão a barra" + str(i+1) + ":",text_color='white')      
         label.grid (column = 0, row = linhas)                        # imprimindo mensagem para as barras

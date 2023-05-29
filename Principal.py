@@ -232,11 +232,12 @@ def botão_proximo():                                                 # função
     linhas = linhas + 2                                              # adiciona 2 a variavel linhas para pular duas linhas na tela ante de imprimir a mensagem
     tamanho_lista1 = len(lista_de_entradanos_x)                      # len é uma função que pega o tamanho da lista para ser usado no f
     for i in range(tamanho_lista1):
-        v_posição_x.append(int(lista_de_entradanos_x[i].get()))      # esse funciona para pegar o valor da caixa de entrada
-        v_posição_y.append(int(lista_de_entradanos_y[i].get()))      # esse funciona para pegar o valor da caixa de entrada
-        x = v_posição_x[i]
-        y = v_posição_y[i]
-        draw_circle(x,y)  
+        if lista_de_entradanos_x[i].get() != '':
+            v_posição_x.append(int(lista_de_entradanos_x[i].get()))      # esse funciona para pegar o valor da caixa de entrada
+            v_posição_y.append(int(lista_de_entradanos_y[i].get()))      # esse funciona para pegar o valor da caixa de entrada
+            x = v_posição_x[i]
+            y = v_posição_y[i]
+            draw_circle(x,y)  
      
     for i in range(entrada_vigas_int):                               # for para criar as caixas de entrada de dados das barras
         linhas = linhas +1                                           # adicinado 1 a variavel linhas para pular uma linha na tela ante de imprimir a mensagem

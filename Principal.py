@@ -2,7 +2,7 @@ import math
 import numpy
 import tkinter as tk
 import customtkinter  as ctk 
-
+import string
 #                               Tamanho Da tela
 numpy.set_printoptions(3, suppress=True)
 root = ctk.CTk()                  # Cria a nossa janela
@@ -96,7 +96,8 @@ plotcanvs.bind("<Configure>", lambda event: draw_cartesian_plane())
 
 # Inicializa o plano cartesiano
 draw_cartesian_plane()
-
+letra = ['A','B','C','D','E','F','G','H','I','J','K','L','M']   # Variavel auxiliar para nomear os Nós
+Pos_letra = 0                                                   # posição atual do alfabeto 
 
 
 
@@ -107,17 +108,28 @@ def draw_circle(x, y):
     x_coord = width / 2 + x * 35
     y_coord = height / 2 - y * 35
     tam = 3
+    global Pos_letra
     x = int()
     y = int()
     plotcanvs.create_oval(x_coord - tam, y_coord - tam, x_coord + tam, y_coord + tam, fill="#cccfd0", tags="cartesian_plane",outline="white")
 
+    # Obter a letra atual do alfabeto
+    current_letter = string.ascii_uppercase[Pos_letra]
+
+    # Criar o texto com a letra atual
+    plotcanvs.create_text(x_coord + 10, y_coord, text=current_letter, font=("Arial", 12), tags="cartesian_plane", fill="#cccfd0")
+
+    # Atualizar a posição atual no alfabeto
+    Pos_letra = (Pos_letra + 1) % len(string.ascii_uppercase)
+
+    
 
 def draw_barra():
     x1 = width / 2 + 2 * 35
     y1 = height / 2 - 3 * 35
     x2 = width / 2 + 5* 35
     y2 = height / 2 - (-2) * 35
-    plotcanvs.create_line(p1, p2,p3, p4, fill="#cccfd0", tags="cartesian_plane",width='3')
+    #plotcanvs.create_line(p1, p2,p3, p4, fill="#cccfd0", tags="cartesian_plane",width='3')
 
 
 # caixa de entrada de dados dos nós 

@@ -181,7 +181,7 @@ def botão_confirmar():                                               # função
     global lista_de_entradanos_x     
     num_barras = int(entrada_vigas.get()) 
     linhas = int (contador_de_linhas)                                # repasando o valor de contador_de_linhas para a variavel linhas para ser usado na função
-    entrada_nos_int = int(entrada_nos.get())                          # transformar a variavel entradanos no tipo INT e repasa para a variavel entrada_nos_int para ser usada na função                        
+    entrada_nos_int = int(entrada_nos.get())                         # transformar a variavel entradanos no tipo INT e repasa para a variavel entrada_nos_int para ser usada na função                        
 
 
     for i in range(entrada_nos_int):                                 # for para criar as caixas de entrada de dados dos nós
@@ -196,7 +196,6 @@ def botão_confirmar():                                               # função
                                         
         caixa = ctk.CTkEntry (containerframe ,width=100,border_color='#071e26',)# cria uma caixa de entrada para pegar as cordenada do pontos
         caixa.grid(column=2, row=linhas)                             # marcando onde ele vai ser impressa na tela
-        
         lista_de_entradanos_y.append(caixa)                          # adicinando o valor que foi inserido na caixa de entrada a uma lista para salvar as cordenadas dos nós
 
 
@@ -237,6 +236,7 @@ def botão_proximo():                                                 # função
             v_posição_y.append(int(lista_de_entradanos_y[i].get()))      # esse funciona para pegar o valor da caixa de entrada
             x = v_posição_x[i]
             y = v_posição_y[i]
+            print (num_barras)
             draw_circle(x,y)  
      
     for i in range(entrada_vigas_int):                               # for para criar as caixas de entrada de dados das barras
@@ -256,6 +256,7 @@ def botão_proximo():                                                 # função
         entrada_barras1.grid(column=1, row=linhas)                    # para receber as cordenadas das barras
         entrada_barras2 = ctk.CTkEntry (containerframe ,width=100,border_color='#071e26')                    # cria uma caixa de entrada do tamanho 100
         entrada_barras2.grid(column=2, row=linhas)                    # para receber a segunda cordenada da barra
+        linhas = linhas +1                                            # adicinado 1 a variavel linhas para pular uma linha na tela ante de imprimir a mensagem
 
    
 

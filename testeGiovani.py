@@ -152,13 +152,14 @@ def botão_proximo():                                                 # função
     global v_posição_y                                               # pega a lista v_posição_y para ser usada na função              
     entrada_vigas_int = int(entrada_vigas.get())                     # transformar as duas varias entradavigas e entradanos no tipo INT e repasa para a variavel entrada_vigas_int para ser usada na função 
     linhas = botão_confirmar()                                       # recebe a variavel linhas da função anterior botão_confirmar para continuar a contagem de linhas
-    linhas = 0                                                        # zera a variavel linhas para ser usada na função
     linhas = linhas + 2                                              # adiciona 2 a variavel linhas para pular duas linhas na tela ante de imprimir a mensagem
     tamanho_lista = len(lista_de_entradanos_x)                       # len é uma função que pega o tamanho da lista para ser usado no for 
     print (lista_de_entradanos_x)                                    # printa a lista de entrada dos nós como teste
-    for i in range(tamanho_lista):
+    for i in range(tamanho_lista-2):
         v_posição_x.append(int(lista_de_entradanos_x[i].get()))      # esse funciona para pegar o valor da caixa de entrada
+        v_posição_y.append(int(lista_de_entradanos_y[i].get()))      # esse funciona para pegar o valor da caixa de entrada
         print (v_posição_x[i])                                       # printa a lista de entrada dos nós como teste
+        print (v_posição_y[i])                                       # printa a lista de entrada dos nós como teste
     #usado em teste#aleatorio = botão_confirmar()#usado em teste#
     #usado em teste#aleatorio = aleatorio[1]#usado em teste# 
                                                                      

@@ -79,8 +79,8 @@ v_posição_y.clear()                                                  # limpa a
 v_p_barras = []                                                      # cria uma lista para armazenar as posições das barras
 
 lista_de_entradas_barras = []                                        # cria uma lista para armazenar as entradas das barras
-lista_de_entradanos_x = [0]                                           # cria uma lista para armazenar os nós
-lista_de_entradanos_y = [0]                                           # cria uma lista para armazenar os nós
+lista_de_entradanos_x = []                                           # cria uma lista para armazenar os nós
+lista_de_entradanos_y = []                                           # cria uma lista para armazenar os nós
 contador_de_linhas = int(4)                                          # variavel usada para contar linhas e server de base para onde imprimir os dados na tela 
 num_barras = 0
 entrada_barras1 = 0
@@ -166,7 +166,7 @@ entrada_nos.grid(column=1, row=0)
 # caixa de entrada de dados das barras
 label = ctk.CTkLabel(containerframe , text = "Numero de barras:",text_color='white')
 label.grid (column = 0, row = 1)
-entrada_vigas = ctk.CTkEntry (containerframe,width=100,border_color='#030e11')                            # cria uma caixa de entrada do tamanho 10
+entrada_vigas = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
 entrada_vigas.grid(column=1, row=1)       
                                                                      # obtem a quantidade de barras do usuario   
 
@@ -189,12 +189,12 @@ def botão_confirmar():                                               # função
         label = ctk.CTkLabel (containerframe , text = "posição X e Y do nó " + str(i+1) + ":",text_color='white')      
         label.grid (column = 0, row =linhas)   
         
-        caixa = ctk.CTkEntry (containerframe,width=100,border_color='#071e26')# cria uma caixa de entrada para pegar as cordenada do pontos
+        caixa = ctk.CTkEntry (containerframe,width=100,border_color='#071e26',)# cria uma caixa de entrada para pegar as cordenada do pontos
         caixa.grid(column=1, row=linhas)
         lista_de_entradanos_x.append(caixa)                          # adicinando o valor que foi inserido na caixa de entrada a uma lista para salvar as cordenadas dos nós
             
                                         
-        caixa = ctk.CTkEntry (containerframe ,width=100,border_color='#071e26')# cria uma caixa de entrada para pegar as cordenada do pontos
+        caixa = ctk.CTkEntry (containerframe ,width=100,border_color='#071e26',)# cria uma caixa de entrada para pegar as cordenada do pontos
         caixa.grid(column=2, row=linhas)                             # marcando onde ele vai ser impressa na tela
         
         lista_de_entradanos_y.append(caixa)                          # adicinando o valor que foi inserido na caixa de entrada a uma lista para salvar as cordenadas dos nós
@@ -231,21 +231,13 @@ def botão_proximo():                                                 # função
     #linhas = [0]                                                    # zera a variavel linhas para ser usada na função
     linhas = linhas + 2                                              # adiciona 2 a variavel linhas para pular duas linhas na tela ante de imprimir a mensagem
     tamanho_lista1 = len(lista_de_entradanos_x)                      # len é uma função que pega o tamanho da lista para ser usado no f
-    for i in range(tamanho_lista1-2):
+    for i in range(tamanho_lista1):
         v_posição_x.append(int(lista_de_entradanos_x[i].get()))      # esse funciona para pegar o valor da caixa de entrada
         v_posição_y.append(int(lista_de_entradanos_y[i].get()))      # esse funciona para pegar o valor da caixa de entrada
         x = v_posição_x[i]
         y = v_posição_y[i]
         draw_circle(x,y)  
      
-    for i in range(tamanho_lista1-2):                                # for para pegar os valores da lista de entrada dos nós e passar para a lista  v_posição_y
-        v_posição_x.append(int(lista_de_entradanos_x[i].get()))      # esse funciona para pegar o valor da caixa de entrada
-        print (v_posição_x[i])                                       # printa a lista de entrada dos nós como teste
-    tamanho_lista2 = len(lista_de_entradanos_y)                      # len é uma função que pega o tamanho da lista para ser usado no for
-    for i in range(tamanho_lista2-2):                                # for para pegar os valores da lista de entrada dos nós e passar para a lista  v_posição_y
-        v_posição_y.append(int(lista_de_entradanos_y[i].get()))      # esse funciona para pegar o valor da caixa de entrada
-        print (v_posição_y[i])                                       # printa a lista de entrada dos nós como teste
-                                                                     
     for i in range(entrada_vigas_int):                               # for para criar as caixas de entrada de dados das barras
         linhas = linhas +1                                           # adicinado 1 a variavel linhas para pular uma linha na tela ante de imprimir a mensagem
         #usado em teste#result_confirm = ctk.CTkLabel(containerframe,text = ("Posicoes salvadas com sucesso" + str(aleatorio)))#usado em teste#

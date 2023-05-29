@@ -66,7 +66,7 @@ plotcanvs.grid(row=0,column=0,sticky='nsew')
  # Tamanho e largura da tela do canvas
 width = plotcanvs.winfo_width()
 height = plotcanvs.winfo_height()
-
+letter_coords = {}
 def draw_cartesian_plane():
     plotcanvs.delete("cartesian_plane")  # Remove linhas existentes antes de redesenhar
     width = plotcanvs.winfo_width()
@@ -96,8 +96,22 @@ plotcanvs.bind("<Configure>", lambda event: draw_cartesian_plane())
 
 # Inicializa o plano cartesiano
 draw_cartesian_plane()
-letra = ['A','B','C','D','E','F','G','H','I','J','K','L','M']   # Variavel auxiliar para nomear os Nós
-Pos_letra = 0                                                   # posição atual do alfabeto 
+
+                                                     #Variaveis
+
+Pos_letra = 0                                                                       # posição atual do alfabeto 
+letter_coords = {}                                              # Dicionário para armazenar as coordenadas de cada letra
+
+v_posição_x = []                                                     # cria uma lista para armazenar as posições X dos nós
+v_posição_x.clear()                                                  # limpa a lista v_posição_x
+v_posição_y = []                                                     # cria uma lista para armazenar as posições Y dos nós
+v_posição_y.clear()                                                  # limpa a lista v_posição_y
+v_p_barras = []                                                      # cria uma lista para armazenar as posições das barras
+
+lista_de_entradas_barras = []                                        # cria uma lista para armazenar as entradas das barras
+lista_de_entradanos_x = []                                           # cria uma lista para armazenar os nós
+lista_de_entradanos_y = []                                           # cria uma lista para armazenar os nós
+contador_de_linhas = int(4)                                          # variavel usada para contar linhas e server de base para onde imprimir os dados na tela 
 
 
 
@@ -109,6 +123,7 @@ def draw_circle(x, y):
     y_coord = height / 2 - y * 35
     tam = 3
     global Pos_letra
+    global letter_coords                                       
     x = int()
     y = int()
     plotcanvs.create_oval(x_coord - tam, y_coord - tam, x_coord + tam, y_coord + tam, fill="#cccfd0", tags="cartesian_plane",outline="white")
@@ -119,17 +134,21 @@ def draw_circle(x, y):
     # Criar o texto com a letra atual
     plotcanvs.create_text(x_coord + 10, y_coord, text=current_letter, font=("Arial", 12), tags="cartesian_plane", fill="#cccfd0")
 
+    # Armazenar as coordenadas da letra no dicionário
+    letter_coords[current_letter] = (x_coord, y_coord)
+
+    #print(letter_coords)
+
     # Atualizar a posição atual no alfabeto
     Pos_letra = (Pos_letra + 1) % len(string.ascii_uppercase)
-
-    
-
-def draw_barra():
-    x1 = width / 2 + 2 * 35
-    y1 = height / 2 - 3 * 35
-    x2 = width / 2 + 5* 35
-    y2 = height / 2 - (-2) * 35
-    #plotcanvs.create_line(p1, p2,p3, p4, fill="#cccfd0", tags="cartesian_plane",width='3')
+    #print(f"A letra '{current_letter}' foi adicionada ao dicionário com as coordenadas ({x_coord}, {y_coord})") teste para ver se a variavel foi adicionada
+    return
+def draw_barra(letter1, letter2): # função para desenhar a barra
+    global letter_coords                                       
+    x1, y1 = letter_coords[letter1]
+    x2, y2 = letter_coords[letter2]
+    plotcanvs.create_line(x1, y1, x2, y2, fill="#cccfd0", tags="cartesian_plane", width=3)
+    return
 
 
 # caixa de entrada de dados dos nós 
@@ -147,24 +166,13 @@ entrada_vigas.grid(column=1, row=1)
 botão_confirmar = ctk.CTkButton(containerframe, text="proximo", command=lambda: botão_confirmar()) # usa a função Button para criar um botão 
 botão_confirmar.grid(column=0, row=2)
 
-v_posição_x = []                                                     # cria uma lista para armazenar as posições X dos nós
-v_posição_x.clear()                                                  # limpa a lista v_posição_x
-v_posição_y = []                                                     # cria uma lista para armazenar as posições Y dos nós
-v_posição_y.clear()                                                  # limpa a lista v_posição_y
-v_p_barras = []                                                      # cria uma lista para armazenar as posições das barras
-
-lista_de_entradas_barras = []                                        # cria uma lista para armazenar as entradas das barras
-lista_de_entradanos_x = []                                           # cria uma lista para armazenar os nós
-lista_de_entradanos_y = []                                           # cria uma lista para armazenar os nós
-contador_de_linhas = int(4)                                          # variavel usada para contar linhas e serveri de base para onde imprimir os dados na tela 
-cordenadas_das_barras = []                                           # cria uma lista para armazenar as cordenadas das barras
-
 
 
 def botão_confirmar():                                               # função botão confirmar pegar os numeros de nós e barras executa um for para criar as caixas de entrada de dados dos nós
     entrada_nos_int = int(entrada_nos.get())                         # transformar a variavel entradanos no tipo INT e repasa para a variavel entrada_nos_int para ser usada na função
     linhas = int (contador_de_linhas)                                # repasando o valor de contador_de_linhas para a variavel linhas para ser usado na função
-                                 
+    global lista_de_entradanos_y
+    global lista_de_entradanos_x                            
     for i in range(entrada_nos_int):                                 # for para criar as caixas de entrada de dados dos nós
         linhas = linhas + 1                                          # adicinado 1 a variavel linhas para pular uma linha na tela ante de imprimir a mensagem
         label = ctk.CTkLabel (containerframe , text = "posição X e Y do nó " + str(i+1) + ":",text_color='white')      
@@ -189,20 +197,27 @@ def botão_confirmar():                                               # função
 
 def botão_proximo():                                                 # função botão proximo pega os numeros de barras executa um for para criar as caixas de entrada de dados das barras 
     global v_posição_x                                               # pega a lista v_posição_x para ser usada na função
-    global v_posição_y                                               # pega a lista v_posição_y para ser usada na função              
+    global v_posição_y      
+    global letter_coords
+    global lista_de_entradanos_y
+    global lista_de_entradanos_x                                               
+
+
+
+
+      
     entrada_vigas_int = int(entrada_vigas.get())                     # transformar as duas varias entradavigas e entradanos no tipo INT e repasa para a variavel entrada_vigas_int para ser usada na função 
     linhas = botão_confirmar()                                       # recebe a variavel linhas da função anterior botão_confirmar para continuar a contagem de linhas
     #linhas = [0]                                                    # zera a variavel linhas para ser usada na função
     linhas = linhas + 2                                              # adiciona 2 a variavel linhas para pular duas linhas na tela ante de imprimir a mensagem
     tamanho_lista1 = len(lista_de_entradanos_x)                      # len é uma função que pega o tamanho da lista para ser usado no f
-                  
-    print (lista_de_entradanos_x)                                    # printa a lista de entrada dos nós como teste
-    for i in range(tamanho_lista1):
+    for i in range(tamanho_lista1-2):
         v_posição_x.append(int(lista_de_entradanos_x[i].get()))      # esse funciona para pegar o valor da caixa de entrada
         v_posição_y.append(int(lista_de_entradanos_y[i].get()))      # esse funciona para pegar o valor da caixa de entrada
         x = v_posição_x[i]
         y = v_posição_y[i]
-        draw_circle(x,y)       
+        draw_circle(x,y)  
+     
     for i in range(tamanho_lista1-2):                                # for para pegar os valores da lista de entrada dos nós e passar para a lista  v_posição_y
         v_posição_x.append(int(lista_de_entradanos_x[i].get()))      # esse funciona para pegar o valor da caixa de entrada
         print (v_posição_x[i])                                       # printa a lista de entrada dos nós como teste
@@ -215,25 +230,36 @@ def botão_proximo():                                                 # função
         linhas = linhas +1                                           # adicinado 1 a variavel linhas para pular uma linha na tela ante de imprimir a mensagem
         #usado em teste#result_confirm = ctk.CTkLabel(containerframe,text = ("Posicoes salvadas com sucesso" + str(aleatorio)))#usado em teste#
         #usado em teste#result_confirm.grid(column=0, row=linhas+1, columnspan=3)#usado em teste#
+    
         '''
         caixa = ctk.CTkEntry (containerframe,width=100,border_color='#071e26')# cria uma caixa de entrada para pegar as cordenada do pontos
         caixa.grid(column=1, row=linhas)                             # marcando onde ele vai ser impressa na tela
         lista_de_entradanos_x.append(caixa)                          # adicinando o valor que foi inserido na caixa de entrada a uma lista para salvar as cordenadas dos nós
         '''    
       
-        label = ctk.CTkLabel (containerframe , text = "diga entre quais nós estão a barra" + str(i+1) + ":",text_color='white')      
-        label.grid (column = 0, row = linhas)                        # imprimindo mensagem para as barras
-        entrada_barras= ctk.CTkEntry (containerframe,width=100,border_color='#071e26')                    # cria uma caixa de entrada do tamanho 100
+    label = ctk.CTkLabel (containerframe , text = "diga entre quais nós estão a barra" + str(i+1) + ":",text_color='white')      
+    label.grid (column = 0, row = linhas)                        # imprimindo mensagem para as barras
+    entrada_barras= ctk.CTkEntry (containerframe,width=100,border_color='#071e26')                    # cria uma caixa de entrada do tamanho 100
         
         
-        entrada_barras.grid(column=1, row=linhas)                    # para receber as cordenadas das barras
-        cordenadas_das_barras.append(entrada_barras)                 # adiciona as cordenadas das barras na lista cordenadas_das_barras
-        entrada_barras= ctk.CTkEntry (containerframe ,width=100,border_color='#071e26')                    # cria uma caixa de entrada do tamanho 100
-        entrada_barras.grid(column=2, row=linhas)                    # para receber a segunda cordenada da barra
-        cordenadas_das_barras.append(entrada_barras)                 # adiciona as cordenadas das barras na lista cordenadas_das_barras
+    entrada_barras.grid(column=1, row=linhas)                    # para receber as cordenadas das barras
+    entrada_barras= ctk.CTkEntry (containerframe ,width=100,border_color='#071e26')                    # cria uma caixa de entrada do tamanho 100
+    entrada_barras.grid(column=2, row=linhas)                    # para receber a segunda cordenada da barra
+
+   
+
         
-        
-    ## teste de merge  oi ##
+    button_confirmar = ctk.CTkButton(containerframe, text="Confirmar", command=lambda: teste()) # usa a função Button para criar um botão que ativara a proxima etapa do programa que é pegar as cordenadas das barras 
+    button_confirmar.grid(column=0, row=linhas+1)
+
     return
+def teste():
+    global letter_coords 
+    draw_barra('A','B') # função para desenhar a barra
+    
+    return
+
+
+
 
 root.mainloop() # Fim da janela

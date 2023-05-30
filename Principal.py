@@ -87,6 +87,8 @@ entrada_barras1 = 0
 entrada_barras2 = 0
 x = 0
 y = 0 
+E = float('210000')                                                  # elasticidade do aço 
+
 
 def draw_cartesian_plane():
     plotcanvs.delete("cartesian_plane")  # Remove linhas existentes antes de redesenhar

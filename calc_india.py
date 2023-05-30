@@ -17,7 +17,7 @@ for i in range(tn):
 ##print(yco)
     
 A = float(input('Enter the Area of cross section in mm2: '))
-E = float(input('Enter the Modulous of Elasticity in N/mm2 : '))
+E = float('210000')
 
 snofel = [] #start node of elements
 enofel = [] #end node of elements
@@ -73,8 +73,8 @@ for i in range(te):                     ## do this for each elements
     m = snofel[i]*2                     ## taking the start node of element(i) and multiply by 2
     n = enofel[i]*2                     ## taking the end node of element(i) and multiply by 2
     add = [m-1, m, n-1, n]              ## Address of columns and rows of gstmatmap for elemet(i)
-                                            # if startnode is 1 and end node is 2 then add=[1,2,3,4]
-                                            # if startnode is 1 and end node is 3 then add=[1,2,5,6]
+                                        # if startnode is 1 and end node is 2 then add=[1,2,3,4]
+                                        # if startnode is 1 and end node is 3 then add=[1,2,5,6]
     gmat = numpy.zeros((tn*2, tn*2))    ## global stiffness matrix loaded with zeros for element(i)
     elmat = elstmat[i]                  ## taking the element stiffness matrix of element(i)
     for j in range(4):                  

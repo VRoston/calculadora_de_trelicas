@@ -1,100 +1,105 @@
 import tkinter as tk
-import string
-9k-0
+from tkinter import messagebox
 
-# Inicializar a posição atual no alfabeto
-Pos_letra = 0
+'''
 
+    F1 é a força na primeira extremidade da barra.
+    F2 é a força na segunda extremidade da barra.
+    F3 é a força na terceira extremidade da barra.
+    Fx é a força horizontal aplicada na barra.
+    Fy é a força vertical aplicada barra.
+    L é o comprimento da barra.
 
-root = ctk.CTk()                  # Cria a nossa janela
-root._set_appearance_mode('dark') 
-root.title('Calculadora de Treliçãs')
-sw = root.winfo_screenwidth()
-sh = root.winfo_screenheight()
-ww = int(5*sw/6)
-wh = int(5*sh/6)
-who = int(1*(sh-wh)/3)
-wwo = int((sw-ww)/2)
-root.minsize(800,600)
-winsize = str(ww)+'x'+str(wh)+'+'+str(wwo)+'+'+str(who) 
-root.geometry(winsize)
+'''
 
-                            # Configuração dos frames
-root.columnconfigure([0,1], weight=1)
-root.rowconfigure(1, weight=1)
-titleframe = ctk.CTkFrame(root,bg_color='#030e11')  # Frame do Titulo
-guiframe = ctk.CTkFrame(root,bg_color='#030e11')    # Frame Principal
-graphframe = ctk.CTkFrame(root,bg_color='#030e11')  # Frame Grafíco
-titleframe.grid(row=0,column=0,columnspan=2,sticky='nsew')
-guiframe.grid(row=1,column=0,sticky='nsew')
-graphframe.grid(row=1,column=1,sticky='nsew')
+def calcular_forcas(nodo):
+    try:
+        Fx = float(entry_Fx.get())
+        Fy = float(entry_Fy.get())
+        L1 = float(entry_L1.get())
+        L2 = float(entry_L2.get())
+        L3 = float(entry_L3.get())
+    except ValueError:
+        messagebox.showerror("Erro", "Por favor, insira valores numéricos válidos.")
+        return
 
-                            # Frame Do Título
-titleframe.columnconfigure(0, weight=1)
-titlelbl = ctk.CTkLabel(titleframe, text='Calculadora de Treliças 2d',bg_color='#020a0d',text_color='white')
-titlelbl.grid(row=0,column=0,sticky='nsew')
+    if nodo == "A":
+        F1 = Fy
+        F2 = Fx
+        F3 = -((F1 * L1) / L3)
+    elif nodo == "B":
+        F1 = -((Fy * L2) / L3)
+        F2 = Fx
+        F3 = Fy
+    elif nodo == "C":
+        F1 = -((Fy * L2) / L3)
+        F2 = -((Fx * L1) / L3)
+        F3 = Fy
 
-                            # Frame Principal
-guiframe.columnconfigure(0, weight=1)
-guiframe.rowconfigure(0, weight=1)
-guiframe.grid_propagate(0)
+    resultado.set(f"F1 = {F1:.2f} N, F2 = {F2:.2f} N, F3 = {F3:.2f} N")
 
-guicanvs = ctk.CTkCanvas(guiframe, highlightthickness=0,background='#030e11',)                             
-guivscrol = ctk.CTkScrollbar(guiframe, orientation='vertical', command=guicanvs.yview,bg_color='#030e11')  #scrollbar esquerda
-guihscrol = ctk.CTkScrollbar(guiframe, orientation='horizontal', command=guicanvs.xview,bg_color='#030e11') #scrollbar direita
-guicanvs.grid(row=0,column=0,sticky='nsew')
-guivscrol.grid(row=0,column=1,rowspan=2,sticky='nsew')
-guihscrol.grid(row=1,column=0,sticky='nsew')
+def desenhar_trelica():
+    canvas.delete("all")
+    L1 = float(entry_L1.get())
+    L2 = float(entry_L2.get())
+    L3 = float(entry_L3.get())
+    canvas.create_line(50, 150, 50 + L1, 150 - L3)
+    canvas.create_line(50 + L1, 150 - L3, 50 + L1 + L2, 150 - L3)
+    canvas.create_line(50, 150, 50 + L1 + L2, 150)
+    canvas.create_text(50, 150, text="A")
+    canvas.create_text(50 + L1, 150 - L3, text="B")
+    canvas.create_text(50 + L1 + L2, 150, text="C")
 
-guicanvs.columnconfigure(0, weight=1)
-guicanvs.rowconfigure(0, weight=1)
-containerframe = ctk.CTkFrame(guicanvs,fg_color='#030e11') # ContainerFrame 
-containerframe.grid(row=0,column=0,sticky='nsew')
+root = tk.Tk()
+root.title("Método dos Nós para Treliças")
 
-guicanvs.create_window((0,0), width=ww/2-17, window=containerframe, anchor='nw', tags=('canwin'))
+frame = tk.Frame(root, padx=10, pady=10)
+frame.pack()
 
-containerframe.bind('<Configure>', lambda e: guicanvs.configure(scrollregion=guicanvs.bbox('all')))
-guicanvs.configure(yscrollcommand=guivscrol.set, xscrollcommand=guihscrol.set)
+canvas = tk.Canvas(frame, width=400, height=200)
+canvas.pack()
 
-containerframe.columnconfigure([0,1,2], weight=1)
+desenhar_trelica()
 
-graphframe.grid_propagate(0)
-graphframe.columnconfigure(0, weight=1)
-graphframe.rowconfigure(0, weight=1)
-plotcanvs = ctk.CTkCanvas(graphframe,highlightthickness=0, width=ww/2,bg='#041216')       # cores tela canvas e tamanhop
-plotcanvs.grid(row=0,column=0,sticky='nsew')
-def draw_circle(x, y):
-    width = plotcanvs.winfo_width()
-    height = plotcanvs.winfo_height()
-    x_coord = width / 2 + x * 35
-    y_coord = height / 2 - y * 35
-    tam = 3
-    global Pos_letra
-    x = int()
-    y = int()
-    plotcanvs.create_oval(x_coord - tam, y_coord - tam, x_coord + tam, y_coord + tam, fill="#cccfd0", tags="cartesian_plane",outline="white")
+label_Fx = tk.Label(frame, text="Força horizontal (Fx):")
+label_Fx.pack()
+entry_Fx = tk.Entry(frame)
+entry_Fx.pack()
 
-    # Obter a letra atual do alfabeto
-    current_letter = string.ascii_uppercase[Pos_letra]
+label_Fy = tk.Label(frame, text="Força vertical (Fy):")
+label_Fy.pack()
+entry_Fy = tk.Entry(frame)
+entry_Fy.pack()
 
-    # Criar o texto com a letra atual
-    plotcanvs.create_text(x_coord + 10, y_coord, text=current_letter, font=("Arial", 12), tags="cartesian_plane", fill="#cccfd0")
+label_L1 = tk.Label(frame, text="Comprimento da barra 1 (L1):")
+label_L1.pack()
+entry_L1 = tk.Entry(frame)
+entry_L1.pack()
 
-    # Atualizar a posição atual no alfabeto
-    Pos_letra = (Pos_letra + 1) % len(string.ascii_uppercase)
+label_L2 = tk.Label(frame, text="Comprimento da barra 2 (L2):")
+label_L2.pack()
+entry_L2 = tk.Entry(frame)
+entry_L2.pack()
 
-    return x_coord, y_coord
+label_L3 = tk.Label(frame, text="Comprimento da barra 3 (L3):")
+label_L3.pack()
+entry_L3 = tk.Entry(frame)
+entry_L3.pack()
 
-def draw_line_between_circles(x1, y1, x2, y2):
-    plotcanvs.create_line(x1, y1, x2, y2, fill="#cccfd0", tags="cartesian_plane", width=2)
+button_desenhar = tk.Button(frame, text="Desenhar Treliça", command=desenhar_trelica)
+button_desenhar.pack()
 
+button_calcular_A = tk.Button(frame, text="Calcular Forças em A", command=lambda: calcular_forcas("A"))
+button_calcular_A.pack()
 
+button_calcular_B = tk.Button(frame, text="Calcular Forças em B", command=lambda: calcular_forcas("B"))
+button_calcular_B.pack()
 
-# Exemplo de uso das funções
-x1, y1 = draw_circle(1, 1)
-x2, y2 = draw_circle(2, 2)
-draw_line_between_circles(x1, y1, x2, y2)
+button_calcular_C = tk.Button(frame, text="Calcular Forças em C", command=lambda: calcular_forcas("C"))
+button_calcular_C.pack()
 
-# Iniciar o loop principal
+resultado = tk.StringVar()
+label_resultado = tk.Label(frame, textvariable=resultado)
+label_resultado.pack()
+
 root.mainloop()
-

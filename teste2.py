@@ -84,6 +84,7 @@ def teste():
         print (v_posição_y[i])
 
 
+
 def botão_proximo():                                                 # Função do botão                
     entrada_vigas_int = int(entrada_vigas.get())                     # transformar as duas varias entradavigas e entradanos no tipo INT   
     linhas = botão_confirmar()                              # transformar a variavel linhas no tipo INT  
@@ -103,8 +104,6 @@ def botão_proximo():                                                 # Função
         entrada_barras.grid(column=1, row=linhas)                    # para receber as cordenadas das barras
         cordenadas_das_barras.append(entrada_barras)                 # adiciona as cordenadas das barras na lista cordenadas_das_barras
         entrada_barras= tk.Entry (root ,width=10)                    # cria uma caixa de entrada do tamanho 10
-        entrada_barras.grid(column=2, row=linhas)                    # para receber a segunda cordenada da barra
-        cordenadas_das_barras.append(entrada_barras)                 # adiciona as cordenadas das barras na lista cordenadas_das_barras
         
         
     

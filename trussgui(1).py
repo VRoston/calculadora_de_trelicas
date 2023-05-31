@@ -1,16 +1,11 @@
 import math
 import numpy
-import tkinter        as tk
-import customtkinter  as ctk 
-
+import tkinter
 
 numpy.set_printoptions(3, suppress=True)
 
-numpy.set_printoptions(3, suppress=True)
-
-window = ctk.CTk()                  # Cria a nossa janela
-window._set_appearance_mode('dark') 
-window.title('Calculadora de Treliçãs')
+window = tkinter.Tk()
+window.title('Scrollable window')
 sw = window.winfo_screenwidth()
 sh = window.winfo_screenheight()
 ww = int(5*sw/6)
@@ -18,39 +13,36 @@ wh = int(5*sh/6)
 who = int(1*(sh-wh)/3)
 wwo = int((sw-ww)/2)
 window.minsize(800,600)
-winsize = str(ww)+'x'+str(wh)+'+'+str(wwo)+'+'+str(who) 
+winsize = str(ww)+'x'+str(wh)+'+'+str(wwo)+'+'+str(who)
 window.geometry(winsize)
 
-                            # Configuração dos frames
 window.columnconfigure([0,1], weight=1)
 window.rowconfigure(1, weight=1)
-titleframe = ctk.CTkFrame(window,bg_color='#030e11')  # Frame do Titulo
-guiframe = ctk.CTkFrame(window,bg_color='#030e11')    # Frame Principal
-graphframe = ctk.CTkFrame(window,bg_color='#030e11')  # Frame Grafíco
+titleframe = tkinter.Frame(window, bg='gray')
+guiframe = tkinter.Frame(window, bg='green')
+graphframe = tkinter.Frame(window, bg='pink')
 titleframe.grid(row=0,column=0,columnspan=2,sticky='nsew')
 guiframe.grid(row=1,column=0,sticky='nsew')
 graphframe.grid(row=1,column=1,sticky='nsew')
 
-                            # Frame Do Título
 titleframe.columnconfigure(0, weight=1)
-titlelbl = ctk.CTkLabel(titleframe, text='Calculadora de Treliças 2d',bg_color='#020a0d',text_color='white')
+titlelbl = tkinter.Label(titleframe, text='Finite Element Analysis of 2D Plane Truss', font=('Arial 25 bold'))
 titlelbl.grid(row=0,column=0,sticky='nsew')
 
-                            # Frame Principal
 guiframe.columnconfigure(0, weight=1)
 guiframe.rowconfigure(0, weight=1)
 guiframe.grid_propagate(0)
 
-guicanvs = ctk.CTkCanvas(guiframe, highlightthickness=0,background='#030e11',)                             
-guivscrol = ctk.CTkScrollbar(guiframe, orientation='vertical', command=guicanvs.yview,bg_color='#030e11')  #scrollbar esquerda
-guihscrol = ctk.CTkScrollbar(guiframe, orientation='horizontal', command=guicanvs.xview,bg_color='#030e11') #scrollbar direita
+guicanvs = tkinter.Canvas(guiframe, bg='orange', highlightthickness=0)
+guivscrol = tkinter.Scrollbar(guiframe, orient='vertical', command=guicanvs.yview)
+guihscrol = tkinter.Scrollbar(guiframe, orient='horizontal', command=guicanvs.xview)
 guicanvs.grid(row=0,column=0,sticky='nsew')
 guivscrol.grid(row=0,column=1,rowspan=2,sticky='nsew')
 guihscrol.grid(row=1,column=0,sticky='nsew')
 
 guicanvs.columnconfigure(0, weight=1)
 guicanvs.rowconfigure(0, weight=1)
-containerframe = ctk.CTkFrame(guicanvs,fg_color='#030e11') # ContainerFrame 
+containerframe = tkinter.Frame(guicanvs, bg='red')
 containerframe.grid(row=0,column=0,sticky='nsew')
 
 guicanvs.create_window((0,0), width=ww/2-17, window=containerframe, anchor='nw', tags=('canwin'))
@@ -63,7 +55,7 @@ containerframe.columnconfigure([0,1,2], weight=1)
 graphframe.grid_propagate(0)
 graphframe.columnconfigure(0, weight=1)
 graphframe.rowconfigure(0, weight=1)
-plotcanvs = ctk.CTkCanvas(graphframe,highlightthickness=0, width=ww/2,bg='#041216')       # cores tela canvas e tamanhop
+plotcanvs = tkinter.Canvas(graphframe, bg='pink',highlightthickness=0, width=ww/2)
 plotcanvs.grid(row=0,column=0,sticky='nsew')
 
 ####____________________________________________________________________________________####
@@ -107,16 +99,17 @@ def btnprs(btn):
             inputlist.append(tn)
             inputlist.append(te)
             for i in range(tn):                
-                lbl = ctk.CTkLabel (containerframe , text = "posição X e Y do nó " + str(i+1) + ":",text_color='white')  
+                t = 'Enter the x and y co-ordinates of node '+str(i+1)+' in mm : '
+                lbl = tkinter.Label(containerframe, text=t)
                 labellist.append(lbl)
                 lbl.grid(row=2+i,column=0,sticky='nsew')
-                xent = ctk.CTkEntry(containerframe)
+                xent = tkinter.Entry(containerframe)
                 entrylist.append(xent)
-                yent = ctk.CTkEntry(containerframe)
+                yent = tkinter.Entry(containerframe)
                 entrylist.append(yent)
                 xent.grid(row=2+i,column=1,sticky='nsew')
                 yent.grid(row=2+i,column=2,sticky='nsew')
-            btn2 = ctk.CTkButton(containerframe, text='Plot', command = lambda: btnprs('btn2'))
+            btn2 = tkinter.Button(containerframe, text='Plot', command = lambda: btnprs('btn2'))
             buttonlist.append(btn2)
             btn2.grid(row=2+tn,column=0,columnspan=2,sticky='nsew')
         if len(inputlist)==0:
@@ -145,7 +138,7 @@ def btnprs(btn):
             
     if btn == 'btn2':
         def getcoordinates():
-            btn3 = ctk.CTkButton(containerframe, text='OK', command=lambda: btnprs('btn3'))
+            btn3 = tkinter.Button(containerframe, text='OK', command=lambda: btnprs('btn3'))
             buttonlist.append(btn3)
             btn3.grid(row=2+inputlist[0],column=2,columnspan=2,sticky='nsew')
             count=0
@@ -198,16 +191,17 @@ def btnprs(btn):
         te = inputlist[1]
         def getstennodes():
             for i in range(te):
-                lbl = ctk.CTkLabel (containerframe , text = "qual o nó inicial do elemento " + str(i+1) + "?",text_color='white')  
+                t = 'Enter the Start node number and end node number of element '+str(i+1)+' : '
+                lbl = tkinter.Label(containerframe, text=t)
                 labellist.append(lbl)
                 lbl.grid(row=2+tn+1+i, column=0, sticky='nsew')
-                snentry = ctk.CTkEntry(containerframe)
+                snentry = tkinter.Entry(containerframe)
                 entrylist.append(snentry)
                 snentry.grid(row=2+tn+1+i, column=1, sticky='nsew')
-                enentry = ctk.CTkEntry(containerframe)
+                enentry = tkinter.Entry(containerframe)
                 entrylist.append(enentry)
                 enentry.grid(row=2+tn+1+i, column=2, sticky='nsew')
-            btn4 = ctk.CTkButton(containerframe, text='Colocar elemento', command=lambda: btnprs('btn4'))
+            btn4 = tkinter.Button(containerframe, text='Plot elements', command=lambda: btnprs('btn4'))
             buttonlist.append(btn4)
             btn4.grid(row=2+tn+1+te, column=0, columnspan=2, sticky='nsew')
 
@@ -230,7 +224,7 @@ def btnprs(btn):
     if btn == 'btn4':
         tn = inputlist[0]
         te = inputlist[1]
-        btn5 = ctk.CTkButton(containerframe, text='OK', command=lambda: btnprs('btn5'))
+        btn5 = tkinter.Button(containerframe, text='OK', command=lambda: btnprs('btn5'))
         buttonlist.append(btn5)
         btn5.grid(row=2+tn+1+te,column=2,sticky='nsew')
         def plotelements():
@@ -270,13 +264,13 @@ def btnprs(btn):
         for buttons in buttonlist:
             buttons.configure(state='disabled')
         
-        tsnlbl = ctk.CTkLabel (containerframe , text = "Quantidades de suportes nos nós",text_color='white')      
+        tsnlbl = tkinter.Label(containerframe, text='Enter the total number of nodes having supports')
         labellist.append(tsnlbl)
         tsnlbl.grid(row=2+tn+1+te+1, column=0, sticky='nsew')
-        tsnentry = ctk.CTkEntry(containerframe)
+        tsnentry = tkinter.Entry(containerframe)
         entrylist.append(tsnentry)
         tsnentry.grid(row=2+tn+1+te+1, column=1, sticky='nsew')
-        btn6 = ctk.CTkButton(containerframe, text='OK', command=lambda: btnprs('btn6'))
+        btn6 = tkinter.Button(containerframe, text='OK', command=lambda: btnprs('btn6'))
         buttonlist.append(btn6)
         btn6.grid(row=2+tn+1+te+1, column=2, sticky='nsew')
         
@@ -346,26 +340,26 @@ def btnprs(btn):
         numpymatlist.append(dispmat)
         tsupn = int(entrylist[2+tn*2+te*2].get())
         inputlist.append(tsupn)
-        t = 'Digita "P" para suporte Fixo\nDigita "H" para suporte horizontal (vertical é livre para se mover)\nDigita "V" para suporte Vertical (Horizontal é livre para se mover)'
-        infolbl = ctk.CTkLabel(containerframe, text=t,text_color='white')
+        t = 'Enter "P" for pinned\nEnter "H" for Horizonal restrained (vertical is free to move)\nEnter "V" for Vertical restrained (Horizontal is free to move)'
+        infolbl = tkinter.Label(containerframe, text=t)
         infolbl.grid(row=2+tn+1+te+1+1, column=0, columnspan=3, sticky='nsew')
 
         count=0
         for i in range(tsupn):
-            lbl1 = ctk.CTkLabel(containerframe, text='Entra com o numero do nó que vai receber o suporte',text_color='white')
+            lbl1 = tkinter.Label(containerframe, text='Enter the Node number of supported node')
             labellist.append(lbl1)
-            entry1 = ctk.CTkEntry(containerframe)
+            entry1 = tkinter.Entry(containerframe)
             entrylist.append(entry1)
-            lbl2 = ctk.CTkLabel(containerframe, text='Escolha o tipo do suporte',text_color='white')
+            lbl2 = tkinter.Label(containerframe, text='Enter the support type')
             labellist.append(lbl2)
-            entry2 = ctk.CTkEntry(containerframe)
+            entry2 = tkinter.Entry(containerframe)
             entrylist.append(entry2)
             lbl1.grid(row=2+tn+1+te+1+1+1+count, column=0, sticky='nsew')
             lbl2.grid(row=2+tn+1+te+1+1+1+count+1, column=0, sticky='nsew')
             entry1.grid(row=2+tn+1+te+1+1+1+count, column=1, sticky='nsew')
             entry2.grid(row=2+tn+1+te+1+1+1+count+1, column=1, sticky='nsew')
             count = count+2
-        btn7 = ctk.CTkButton(containerframe, text='OK', command=lambda: btnprs('btn7'))
+        btn7 = tkinter.Button(containerframe, text='OK', command=lambda: btnprs('btn7'))
         buttonlist.append(btn7)
         btn7.grid(row=2+tn+1+te+1+1+1, column=2, rowspan=2*tsupn, sticky='nsew')
 
@@ -399,11 +393,11 @@ def btnprs(btn):
                 plotcanvs.create_text(x,y+20, text='V', font=('Arial 15 bold'))
             count=count+2
 
-        loadlbl = ctk.CTkLabel(containerframe, text='Enter the total number of loaded nodes',text_color='white')
+        loadlbl = tkinter.Label(containerframe, text='Enter the total number of loaded nodes')
         labellist.append(loadlbl)
-        ent = ctk.CTkEntry(containerframe)
+        ent = tkinter.Entry(containerframe)
         entrylist.append(ent)
-        btn8 = ctk.CTkButton(containerframe, text='OK', command=lambda: btnprs('btn8'))
+        btn8 = tkinter.Button(containerframe, text='OK', command=lambda: btnprs('btn8'))
         buttonlist.append(btn8)
 
         loadlbl.grid(row=2+tn+1+te+1+1+2*tsupn+1, column=0, sticky='nsew')
@@ -420,17 +414,17 @@ def btnprs(btn):
         count=0
         for i in range(tlon):
             
-            lonlbl = ctk.CTkLabel(containerframe, text='Enter the node number of Loading : ')
+            lonlbl = tkinter.Label(containerframe, text='Enter the node number of Loading : ')
             labellist.append(lonlbl)
-            fxlbl = ctk.CTkLabel(containerframe, text='Força Horizontal do nó em N : ')
+            fxlbl = tkinter.Label(containerframe, text='Enter the Horizontal load at this node in N : ')
             labellist.append(fxlbl)
-            fylbl = ctk.CTkLabel(containerframe, text='Força Vertical do nó em N : ')
+            fylbl = tkinter.Label(containerframe, text='Enter the Vertical load at this node in N : ')
             labellist.append(fylbl)
-            lonent = ctk.CTkEntry(containerframe)
+            lonent = tkinter.Entry(containerframe)
             entrylist.append(lonent)
-            fxent = ctk.CTkEntry(containerframe)
+            fxent = tkinter.Entry(containerframe)
             entrylist.append(fxent)
-            fyent = ctk.CTkEntry(containerframe)
+            fyent = tkinter.Entry(containerframe)
             entrylist.append(fyent)
 
             lonlbl.grid(row=2+tn+1+te+1+1+2*tsupn+1+1+count, column=0, sticky='nsew')
@@ -442,7 +436,7 @@ def btnprs(btn):
             
 
         count=count+3
-        btn9 = ctk.CTkButton(containerframe, text='OK', command=lambda: btnprs('btn9'))
+        btn9 = tkinter.Button(containerframe, text='OK', command=lambda: btnprs('btn9'))
         buttonlist.append(btn9)
         btn9.grid(row=2+tn+1+te+1+1+2*tsupn+1+1+3*tlon, column=0, columnspan=3, sticky='nsew')
             
@@ -465,13 +459,13 @@ def btnprs(btn):
             y = yplotpts[lon-1]
 
             
-            plotcanvs.create_line(x,y,x-50,y, width=2, arrow=ctk.FIRST)
-            plotcanvs.create_line(x,y,x,y+50, width=2, arrow=ctk.FIRST)
+            plotcanvs.create_line(x,y,x-50,y, width=2, arrow=tkinter.FIRST)
+            plotcanvs.create_line(x,y,x,y+50, width=2, arrow=tkinter.FIRST)
             plotcanvs.create_text(x-55, y-10, text = str(fx))
             plotcanvs.create_text(x, y+50, text= str(fy))
             count=count+3
         numpymatlist.append(forcemat)
-        btn10 = ctk.CTkButton(containerframe, text='Resolver', command=lambda: btnprs('btn10'))
+        btn10 = tkinter.Button(containerframe, text='Solve', command=lambda: btnprs('btn10'))
         buttonlist.append(btn10)
         btn10.grid(row=2+tn+1+te+1+1+2*tsupn+1+1+3*tlon+1, column=0, columnspan=3, sticky='nsew')
         
@@ -619,16 +613,15 @@ def btnprs(btn):
 
 
 
-tnlbl = label = ctk.CTkLabel (containerframe , text = "Número Total de nós",text_color='white')      
-
+tnlbl = tkinter.Label(containerframe, text='Enter the total number of nodes : ')
 labellist.append(tnlbl)
-telbl = ctk.CTkLabel(containerframe, text='Número total de barras : ',text_color='white')
+telbl = tkinter.Label(containerframe, text='Enter the total number of Elements : ')
 labellist.append(telbl)
-tnety = ctk.CTkEntry(containerframe)
+tnety = tkinter.Entry(containerframe)
 entrylist.append(tnety)
-teety = ctk.CTkEntry(containerframe)
+teety = tkinter.Entry(containerframe)
 entrylist.append(teety)
-btn1 = ctk.CTkButton(containerframe, text='OK', command = lambda: btnprs('btn1'))
+btn1 = tkinter.Button(containerframe, text='OK', command = lambda: btnprs('btn1'))
 buttonlist.append(btn1)
 
 tnlbl.grid(row=0,column=0,sticky='nsew')
@@ -681,4 +674,3 @@ window.mainloop()
 ##
 ##
 ##
-

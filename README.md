@@ -26,13 +26,13 @@ Como usar
 
 Navegue até o diretório do programa:
 
-bash
+    bash
 
     cd calculadora_de_trelicas
 
 Execute o programa:
 
-css
+    css
 
     python principal.py
 

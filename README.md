@@ -1,5 +1,5 @@
-# calculadora_de_trelicas
-Calculadora de Treliças
+# Calculadora de Treliçãs
+
 
 Este programa é uma calcular  de treliças 2d  que utiliza o módulo de nós para realizar cálculos e determinar as propriedades estruturais de uma treliça.
 Funcionalidades

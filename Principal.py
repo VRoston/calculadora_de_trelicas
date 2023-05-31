@@ -71,7 +71,7 @@ height = plotcanvs.winfo_height()
 letter_coords = {}
 Pos_letra = 0                                                        # posição atual do alfabeto 
 letter_coords = {}                                                   # Dicionário para armazenar as coordenadas de cada letra
-
+linhas = 0
 v_posição_x = []                                                     # cria uma lista para armazenar as posições X dos nós
 v_posição_x.clear()                                                  # limpa a lista v_posição_x
 v_posição_y = []                                                     # cria uma lista para armazenar as posições Y dos nós
@@ -83,8 +83,10 @@ lista_de_entradanos_x = []                                           # cria uma 
 lista_de_entradanos_y = []                                           # cria uma lista para armazenar os nós
 contador_de_linhas = int(4)                                          # variavel usada para contar linhas e server de base para onde imprimir os dados na tela 
 num_barras = 0
-entrada_barras1 = 0
-entrada_barras2 = 0
+entrada_barras1 = []
+entrada_barras2 = []
+barra_inicial = []
+barra_final = [] 
 x = 0
 y = 0 
 E = float('210000')                                                  # elasticidade do aço 
@@ -223,10 +225,11 @@ def botão_proximo():                                                 # função
     global lista_de_entradanos_y
     global lista_de_entradanos_x                                               
     global num_barras
+    global barra_inicial
+    global barra_final
     global entrada_barras1
-    global entrada_barras2
-    print(v_posição_x)
-      
+    global entrada_barras2      
+    global linhas
     entrada_vigas_int = int(entrada_vigas.get())                     # transformar as duas varias entradavigas e entradanos no tipo INT e repasa para a variavel entrada_vigas_int para ser usada na função 
     linhas = botão_confirmar()                                       # recebe a variavel linhas da função anterior botão_confirmar para continuar a contagem de linhas
     #linhas = [0]                                                    # zera a variavel linhas para ser usada na função
@@ -243,22 +246,21 @@ def botão_proximo():                                                 # função
      
     for i in range(entrada_vigas_int):                               # for para criar as caixas de entrada de dados das barras
         linhas = linhas +1                                           # adicinado 1 a variavel linhas para pular uma linha na tela ante de imprimir a mensagem
-        #usado em teste#result_confirm = ctk.CTkLabel(containerframe,text = ("Posicoes salvadas com sucesso" + str(aleatorio)))#usado em teste#
-        #usado em teste#result_confirm.grid(column=0, row=linhas+1, columnspan=3)#usado em teste#
     
-        '''
-        caixa = ctk.CTkEntry (containerframe,width=100,border_color='#071e26')# cria uma caixa de entrada para pegar as cordenada do pontos
-        caixa.grid(column=1, row=linhas)                             # marcando onde ele vai ser impressa na tela
-        lista_de_entradanos_x.append(caixa)                          # adicinando o valor que foi inserido na caixa de entrada a uma lista para salvar as cordenadas dos nós
-        '''    
     for i in range(num_barras):
         label = ctk.CTkLabel (containerframe , text = "diga entre quais nós estão a barra " + str(i+1) + ":",text_color='white')      
         label.grid (column = 0, row = linhas)                        # imprimindo mensagem para as barras
         entrada_barras1= ctk.CTkEntry (containerframe,width=100,border_color='#071e26')                    # cria uma caixa de entrada do tamanho 100
         entrada_barras1.grid(column=1, row=linhas)                    # para receber as cordenadas das barras
+        barra_inicial.append(entrada_barras1)                         
         entrada_barras2 = ctk.CTkEntry (containerframe ,width=100,border_color='#071e26')                    # cria uma caixa de entrada do tamanho 100
         entrada_barras2.grid(column=2, row=linhas)                    # para receber a segunda cordenada da barra
+        barra_final.append(entrada_barras2)                          
         linhas = linhas +1                                            # adicinado 1 a variavel linhas para pular uma linha na tela ante de imprimir a mensagem
+      
+
+
+
 
    
 
@@ -266,25 +268,47 @@ def botão_proximo():                                                 # função
     button_confirmar = ctk.CTkButton(containerframe, text="Confirmar", command=lambda: Desenhar_barra()) # usa a função Button para criar um botão que ativara a proxima etapa do programa que é pegar as cordenadas das barras 
     button_confirmar.grid(column=0, row=linhas+1)
 
+ 
+
     return
 def Desenhar_barra():
     global letter_coords 
     global num_barras
-    global entrada_barras1
-    global entrada_barras2
+    global barra_final
+    global barra_inicial
+    global linhas
     for i in range(num_barras):
+     if barra_inicial[i].get() != '':
+
+
     # Obter as letras correspondentes às coordenadas da barra
-     letra1 = entrada_barras1.get()
-     letra2 = entrada_barras2.get()
+        letra1 = barra_inicial[i].get()
+        letra2 = barra_final[i].get()
     
     # Obter as coordenadas correspondentes às letras do dicionário "letter_coords"
-    x1, y1 = letter_coords[letra1]
-    x2, y2 = letter_coords[letra2]
+        x1, y1 = letter_coords[letra1]
+        x2, y2 = letter_coords[letra2]
     
     # Chamar a função "draw_barra" com as coordenadas obtidas
-    draw_barra(letra1, letra2)    
-    return
+        draw_barra(letra1, letra2)    
 
+
+    botão_continuar = ctk.CTkButton(containerframe, text="Continuar", command=lambda: teste()) # usa a função Button para criar um botão que ativara a proxima etapa do programa que é pegar as cordenadas das barras 
+    botão_continuar.grid(column=2, row=linhas+1)
+    return
+ 
+def teste():
+    global linhas
+    linhas = linhas + 2
+
+    label = ctk.CTkLabel (containerframe , text = "entra com a area do angulo em mm2 " + str(1) + ":",text_color='white')      
+    label.grid (column = 0, row = linhas) 
+
+    entrada_angulo= ctk.CTkEntry (containerframe,width=100,border_color='#071e26')                    # cria uma caixa de entrada do tamanho 100
+    entrada_angulo.grid(column=1, row=linhas)   
+    E = entrada_angulo.get                                        
+
+    return
 
 
 

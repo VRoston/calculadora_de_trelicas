@@ -3,15 +3,16 @@ import numpy as np                                                   # importa a
 import array  
 
 
-root = tk.Tk()                                                       # cria uma janela
+# Define a janela
+root = tk.Tk()                                                       # Cria uma janela
 # Tamanho Tela
-root.title("Calculo Treliças")                                       # adiciona um titulo a janela      
+root.title("Calculo Treliças")                                       # Adiciona um titulo a janela      
 sw = root.winfo_screenwidth()
 sh = root.winfo_screenheight()
 ww = int(5*sw/6)
 wh = int(5*sh/6)
 who = int(1*(sh-wh)/3)
-wwo = int((sw-ww)/2)                                                  # define o tamanho da janela     
+wwo = int((sw-ww)/2)                                                  # Define o tamanho da janela     
 winsize = str(ww)+'x'+str(wh)+'+'+str(wwo)+'+'+str(who) 
 root.geometry(winsize)        
 
@@ -20,11 +21,7 @@ root.geometry(winsize)
 v_posição_x = []                                                     # cria uma lista para armazenar as posições X dos nós
 v_posição_x.clear()                                                  # limpa a lista v_posição_x
 v_posição_y = []                                                     # cria uma lista para armazenar as posições Y dos nós
-v_posição_y.clear()                                                  # limpa a lista v_posição_y
-
-
-
-# caixa de entrada de dados dos nós 
+v_posição_y.clear()                                                  # limpa a lista v_posição_# caixa de entrada de dados dos nós 
 label = tk.Label (root , text = "Numero de nós:")
 label.grid (column = 0, row = 0)
 entrada_nos = tk.Entry (root ,width=10)                              # cria uma caixa de entrada do tamanho 10
@@ -42,8 +39,7 @@ botão_confirmar.grid(column=0, row=2)
 lista_de_entradanos_x = []                                           # cria uma lista para armazenar os nós
 lista_de_entradanos_y = []                                           # cria uma lista para armazenar os nós
 contador_de_linhas = int(4)                                          # variavel usada para contar linhas e serveri de base para onde imprimir os dados na tela 
-cordenadas_das_barras = []                                           # cria uma lista para armazenar as cordenadas das barras
-
+cordenadas_das_barras = []   
 
 def botão_confirmar():      
     entrada_nos_int = int(entrada_nos.get())                         # transformar a variavel entradanos no tipo INT e armazenar na variavel entrada_nos_int para ser usada na função

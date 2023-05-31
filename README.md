@@ -14,7 +14,8 @@ Pré-requisitos
 Certifique-se de ter o seguinte software instalado:
 
     Python (versão 3.0 ou superior)
-    Windowns ou Linux
+    Windowns ou Linux 
+    A extensão customtkinter
 
 Como usar
 

@@ -22,19 +22,19 @@ Como usar
 
     bash
 
-git clone https://github.com/VRoston/calculadora_de_trelicas.git
+    git clone https://github.com/VRoston/calculadora_de_trelicas.git
 
 Navegue até o diretório do programa:
 
 bash
 
-cd calculadora_de_trelicas
+    cd calculadora_de_trelicas
 
 Execute o programa:
 
 css
 
-python principal.py
+    python principal.py
 
 Siga as instruções na interface do programa para inserir os dados da treliça (coordenadas dos nós, comprimentos dos elementos, etc.).
 

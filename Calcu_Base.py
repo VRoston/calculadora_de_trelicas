@@ -122,11 +122,14 @@ supcondition = ['Entre com o tipo do apoio:',
                 'F = fixo',
                 'H = Horizontal',
                 'V = Vertical ']
-   
+print('imprimindo')
+print(tsupn)
 for i in range(tsupn):
     supn = int(input('\nEnter the node number of suuport : ')) #supported node
     for a in supcondition:
         print(a)
+        
+
     condition = str(input('\nEnter the condition of the support : '))
     if condition in['P', 'p']:
         dispmat[supn*2-2, 0] = 0
@@ -137,7 +140,8 @@ for i in range(tsupn):
         dispmat[supn*2-1, 0] = 0
     else:
         print('Please enter valid entries')
-##print(dispmat)
+print('imprimindo dispmat')
+print(dispmat)
 
 
 print('\n_________________Loading____________________\n')

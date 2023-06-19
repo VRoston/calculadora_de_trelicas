@@ -116,6 +116,8 @@ linhas = 0.0
 cos = 0.0
 sin = 0.0 
 te = 0.0
+tlon = 0
+tlon1 = 0
  
 mat = numpy.array ([[0, 0, 0, 0],
                 [0, 0, 0, 0],
@@ -135,10 +137,22 @@ numpymatlist=[]
 linhas = 1
 te = 0
 tn = 0
+forcemat = numpy.zeros((2*2,1))
 
 tsupn1 = 0
 tsupn = 0
 
+tlon1 = 0
+tlon = 0
+
+supn1= []
+condition1 = []
+supn = []
+condition = []
+condtion2 = []
+supn2 = []
+
+dispmat = []
 ####____________________________________________________________________________________####
 
 
@@ -146,7 +160,7 @@ tsupn = 0
 
 def main():
    
-    global entrada_vigas
+    global entrada_vigas,tn
     # caixa de entrada de dados dos nós 
     label = ctk.CTkLabel (containerframe , text = "Numero de nós:",text_color='white',)
     label.grid (column = 0, row = 0)
@@ -162,14 +176,7 @@ def main():
     botão_confirmar = ctk.CTkButton(containerframe, text="proximo", command=lambda: confirmar()) # usa a função Button para criar um botão 
     botão_confirmar.grid(column=0, row=2)
     def confirmar():
-        global xco 
-        global yco 
-        global linhas
-        global te
-        global tn
-        global lista_entraday
-        global lista_entradax
-        global supA
+        global xco, yco, linhas, te, tn, lista_entraday, lista_entradax, supA
         linhas = linhas + 2
         tn = int(entrada_no.get()) 
         te = int(entrada_vigas.get()) 
@@ -199,17 +206,9 @@ def main():
 
 
     def confirmar2(): 
-        global linhas
-        global lista_entradax
-        global lista_entraday  
+        global linhas, lista_entradax, lista_entraday 
         linhas = linhas + 2
-        global inicial_barra 
-        global entrada_vigas
-        global final_barra                                              # adiciona 2 a variavel linhas para pular duas linhas na tela ante de imprimir a mensagem
-        global a1
-        global b1
-        global xco
-        global yco
+        global inicial_barra, entrada_vigas, final_barra, a1, b1, xco, yco
         tamanho_lista1 = len(lista_entradax)       
         num_barra =int(entrada_vigas.get())
        # print('numeros de barras')
@@ -234,41 +233,16 @@ def main():
             linhas = linhas + 2   
     
     
-        botão_confirmar = ctk.CTkButton(containerframe, text="Calcular", command=lambda: confirmar3()) # usa a função Button para criar um botão 
-        botão_confirmar.grid(column=0, row=linhas+1)
+        #botão_confirmar = ctk.CTkButton(containerframe, text="Calcular", command=lambda: confirmar3()) # usa a função Button para criar um botão 
+        #botão_confirmar.grid(column=0, row=linhas+1)
         
         botão_confirmar = ctk.CTkButton(containerframe, text="Continuar", command=lambda: confirmar4()) # usa a função Button para criar um botão 
         botão_confirmar.grid(column=2, row=linhas+1)
         
     
     def confirmar3():
-        global x1 , mat
-        global y1
-        global x2
-        global y2
-        global xcon
-        global ycon
-        global a 
-        global b
-        global A
-        global E
-        global lq
-        global linhas
-        global cos
-        global sin
-        global snofel
-        global enofel
-        global lenofel
-        global elcon
-        global cosofel
-        global sinofel
-        global te
-        global tn
-        global b_inicial
-        global b_final
-        global inicial_barra
-        global final_barra
-        global elstmat
+        global condtion2, supn2, supn, condtion , sunp1 , condition1 ,x1 , mat, y1, x2, y2, xcon, ycon, a, b, A, E, lq, linhas, cos, sin, snofel, enofel, lenofel, elcon, cosofel, sinofel, te, tn, b_inicial, b_final, inicial_barra, final_barra, elstmat
+
         elstmat = [] 
         gstmatmap = []  
         displist = []
@@ -345,110 +319,103 @@ def main():
         print(displist)
         print(forcelist)
     def confirmar4():
-        global x1 , mat
-        global y1
-        global x2
-        global y2
-        global xcon
-        global ycon
-        global a 
-        global b
-        global A
-        global E
-        global lq
-        global linhas
-        global cos
-        global sin
-        global snofel
-        global enofel
-        global lenofel
-        global elcon
-        global cosofel
-        global sinofel
-        global te
-        global tn
-        global b_inicial
-        global b_final
-        global inicial_barra
-        global final_barra
-        global elstmat
-        global tsupn
-        global supcondition
-        global tsupn1
+        global dispmat, condtion2, supn2, supn, condtion , sunp1 , condition1 ,x1 , mat, y1, x2, y2, xcon, ycon, a, b, A, E, lq, linhas, cos, sin, snofel, enofel, lenofel, elcon, cosofel, sinofel, te, tn, b_inicial, b_final, inicial_barra, final_barra, elstmat, tsupn, supcondition, tsupn1
+
         
         linhas = linhas+2
         
         label = ctk.CTkLabel (containerframe , text = "Entre com o numero total de apoios:",text_color='white')      
         label.grid (column = 0, row =linhas)
         tsupn1 = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
-        tsupn1.grid (column = 2, row =linhas)
+        tsupn1.grid (column = 1, row =linhas)
 
         
         
         
         botão_confirmar = ctk.CTkButton(containerframe, text="ok", command=lambda: confirmar5()) # usa a função Button para criar um botão 
-        botão_confirmar.grid(column=4, row=linhas+1)
+        botão_confirmar.grid(column=1, row=linhas+1)
 
         
          
     def confirmar5():
-        global x1 , mat
-        global y1
-        global x2
-        global y2
-        global xcon
-        global ycon
-        global a 
-        global b
-        global A
-        global E
-        global lq
-        global linhas
-        global cos
-        global sin
-        global snofel
-        global enofel
-        global lenofel
-        global elcon
-        global cosofel
-        global sinofel
-        global te
-        global tn
-        global b_inicial
-        global b_final
-        global inicial_barra
-        global final_barra
-        global elstmat
-        global tsupn
-        global supcondition
-        global tsupn1
+        global dispmat, tlon1,condtion2, supn2, supn, condtion , sunp1 , condition1 , x1 , mat, y1, x2, y2, xcon, ycon, a, b, A, E, lq, linhas, cos, sin, snofel, enofel, lenofel, elcon, cosofel, sinofel, te, tn, b_inicial, b_final, inicial_barra, final_barra, elstmat, tsupn, supcondition, tsupn1
+
+
         tsupn = int(tsupn1.get())
         print(tsupn)
         
         dispmat = numpy.ones((tn*2,1))
-
+       
+        linhas = linhas + 2
+        
         t = 'Digita "F" para suporte Fixo\nDigita "H" para suporte horizontal (vertical é livre para se mover)\nDigita "V" para suporte Vertical (Horizontal é livre para se mover)'
         infolbl = ctk.CTkLabel(containerframe, text=t,text_color='white')
         infolbl.grid(row=linhas+1, column=0, columnspan=5, sticky='nsew')
 
+        
+
         for i in range(tsupn): 
         
+            linhas = linhas+2
+            
             label = ctk.CTkLabel (containerframe , text = 'Entre com o numero do nó :',text_color='white')      
             label.grid (column = 0, row =linhas)
-            supn = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
-            supn.grid (column = 1, row =linhas)
+            supn1 = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
+            supn1.grid (column = 1, row =linhas)
+            supn2.append(supn1) 
             
-            linhas = linhas+2
             
-            label = ctk.CTkLabel (containerframe ,text = 'tipo de pino',text_color='white')      
-            label.grid (column = 0, row =linhas)
-            condition = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
-            condition.grid (column = 3, row =linhas)
-            linhas = linhas+2
-           
+            label = ctk.CTkLabel (containerframe ,text = 'tipo de suporte',text_color='white')      
+            label.grid (column = 0, row =linhas+1)
+            condition1 = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
+            condition1.grid (column = 1, row =linhas+1)
+            condtion2.append(condition1)  
+            
+            
+        #tlon = int(input('Enter the total number of loaded nodes : ')) #total number of loaded nodes
+        
+        
+
+        linhas = linhas+2
+        
+        label = ctk.CTkLabel(containerframe, text='Entre com o numero total de nos com cargas',text_color='white')
+        label.grid(row=linhas+1, column=0)
+        tlon1 = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
+        tlon1.grid (column = 1, row =linhas+1)
+        
         botão_confirmar = ctk.CTkButton(containerframe, text="ok", command=lambda: confirmar6()) # usa a função Button para criar um botão 
         botão_confirmar.grid(column=4, row=linhas+1)
 
+
+
+    def confirmar6():
+        global dispmat,  tlon1,condtion2, supn2, supn, condtion , sunp1 , condition1 ,x1 , mat , y1 , x2 , y2 , xcon , ycon , a , b , A , E , lq , linhas , cos , sin , snofel , enofel , lenofel , elcon , cosofel , sinofel , te , tn , b_inicial , b_final , inicial_barra , final_barra , elstmat , tsupn , supcondition , tsupn1,tlon1
+        tlon = int(tlon1.get())
+        forcemat = numpy.zeros((tn*2,1))
+        dispmat = numpy.ones((tn*2,1))
+        print('imprimindo')
+        print(tsupn)
+        for i in range(tsupn):
+            supn.append(int(supn2[i].get()))      # esse funciona para pegar o valor da caixa de entrada
+            condition.append((condtion2[i].get()))      # esse funciona para pegar o valor da caixa de entrada
+        if condition[i] in['P', 'p']:
+            dispmat[supn[i]*2-2, 0] = 0
+            dispmat[supn[i]*2-1, 0] = 0
+        elif condition[i] in['H', 'h']:
+            dispmat[supn[i]*2-2, 0] = 0
+        elif condition[i] in['V', 'v']:
+            dispmat[supn[i]*2-1, 0] = 0
+        else:
+            print('Please enter valid entries')
+    print('imprimindo dispmat')
+    print(dispmat)
+    
+    for i in range(tlon):
+            lon = int(input('\nEnter the node number of Loading : ')) #Loaded node
+            fx = float(input('Enter the Horizontal load at this node in N : '))
+            fy = float(input('Enter the Vertical load at this node in N : '))
+            forcemat[lon*2-2, 0] = fx
+            forcemat[lon*2-1, 0] = fy
         
 main()
 root.mainloop()

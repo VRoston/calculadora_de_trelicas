@@ -101,6 +101,13 @@ inicial_barra=[]
 final_barra=[] 
 b_inicial =[]
 b_final = []
+mat = numpy.array ([[0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0]])
+
+
+
 entrada_vigas = '2'
 A = float('200')
 E = float('210000')
@@ -108,7 +115,6 @@ b = 0
 l = 0
 a1 = 0
 b1 = 0
-
 numpymatlist=[]
 linhas = 1
 te = 0
@@ -186,8 +192,8 @@ def main():
         global yco
         tamanho_lista1 = len(lista_entradax)       
         num_barra =int(entrada_vigas.get())
-        print('numeros de barras')
-        print(num_barra)
+       # print('numeros de barras')
+       # print(num_barra)
 
         for i in range(tamanho_lista1):
             if lista_entradax[i].get() != '':
@@ -210,9 +216,12 @@ def main():
     
         botão_confirmar = ctk.CTkButton(containerframe, text="Ok", command=lambda: confirmar3()) # usa a função Button para criar um botão 
         botão_confirmar.grid(column=0, row=linhas+1)
+
+        botão_confirmar = ctk.CTkButton(containerframe, text="Ok33", command=lambda: confirmar4()) # usa a função Button para criar um botão 
+        botão_confirmar.grid(column=3, row=linhas+1)
     
     def confirmar3():
-        global x1
+        global x1 , mat
         global y1
         global x2
         global y2
@@ -222,7 +231,7 @@ def main():
         global b
         global A
         global E
-        global l
+        global lq
         global linhas
         global cos
         global sin
@@ -237,20 +246,19 @@ def main():
         global b_final
         global inicial_barra
         global final_barra
-        
+        global elstmat
+        elstmat = []  
         for i in range(te):
           
             b_inicial.append(int(inicial_barra[i].get()))      # esse funciona para pegar o valor da caixa de entrada das coordenadas
             b_final.append(int(final_barra[i].get()))      # esse funciona para pegar o valor da caixa de entrada das coordenadas
                 
-            print(xco)
-            print(yco)
+            ##print(yco)
 
         for i in range(te):  
             a = b_inicial[i]
             b = b_final[i]
-            print(a)
-            print(b)
+           ##print(b)
             x1 = float(xco[a-1])
             y1 = float(yco[a-1])
             x2 = float(xco[b-1])
@@ -266,15 +274,42 @@ def main():
             elcon.append(con)
             cosofel.append(cos)
             sinofel.append(sin)
+            cc = float(cosofel[i])**2
+            ss = float(sinofel[i])**2
+            cs = float(cosofel[i])*float(sinofel[i])
+            
+            mat = elcon[i]*numpy.array([[cc, cs, -cc, -cs],
+                      [cs, ss, -cs, -ss],
+                      [-cc, -cs, cc, cs],
+                      [-cs, -ss, cs, ss]])
+            elstmat.append(mat)
+            print (elstmat)
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+    def confirmar4(): 
+        return
    
            
-            print("----------------------")
-            #print(snofel)
-            #print(enofel)
-            #print(lenofel)
-            #print(elcon)
-            #print(cosofel)
-            #print(sinofel)
+       
+        
+          
+  
+  
+    
+
+   
 
 
         

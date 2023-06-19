@@ -29,8 +29,8 @@ sinofel = [] #sin of element
 for i in range(te):  
     a = int(input('Enter the Start node of element '+str(i+1)+' : '))
     b = int(input('Enter the End node of element '+str(i+1)+' : '))
-    print(a)
-    print(b)
+   # print(a)
+   # print(b)
     x1 = float(xco[a-1])
     y1 = float(yco[a-1])
     x2 = float(xco[b-1])
@@ -67,7 +67,8 @@ for i in range(te):
                       [-cs, -ss, cs, ss]])
 
     elstmat.append(mat)
-##print(elstmat)
+    print('matriz')
+    print(elstmat)
 
 
 gstmatmap = []                          ## Global stiffness matrix mapping, gstmatmap will be the sqare matrix of tn*

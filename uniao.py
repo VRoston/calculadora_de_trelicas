@@ -175,7 +175,6 @@ def main():
         global entrada_vigas
         global final_barra                                              # adiciona 2 a variavel linhas para pular duas linhas na tela ante de imprimir a mensagem
         tamanho_lista1 = len(lista_entradax)       
-        A = 200
         num_barra =int(entrada_vigas.get())
         print(num_barra)
 
@@ -195,9 +194,54 @@ def main():
             linhas = linhas + 2   
     
     
+        botão_confirmar = ctk.CTkButton(containerframe, text="Ok", command=lambda: confirmar3()) # usa a função Button para criar um botão 
+        botão_confirmar.grid(column=0, row=linhas+1)
     
+    def confirmar3():
+        global x1
+        global y1
+        global x2
+        global y2
+        global con
+        global a 
+        global b
+        global A
+        global E
+        global l
+        global linhas
+        global cos
+        global sin
+        global snofel
+        global enofel
+        global lenofel
+        global elcon
+        global cosofel
+        global sinofel
+
+        a = int(a.get())
+        b = int(b.get())
+        print
+        x1 = float(xco[a-1])
+        y1 = float(yco[a-1])
+        x2 = float(xco[b-1])
+        y2 = float(yco[b-1])
+        l = math.sqrt((x2-x1)**2+(y2-y1)**2)
+        con = A*E/l
+        cos = (x2-x1)/l
+        sin = (y2-y1)/l
     
+        snofel.append(a)
+        enofel.append(b)
+        lenofel.append(l)
+        elcon.append(con)
+        cosofel.append(cos)
+        sinofel.append(sin)
+
+
+
+        return 
     
+
     return
 
 

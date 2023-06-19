@@ -176,6 +176,21 @@ def main():
             if lista_entradax[i].get() != '':
                 xco.append(float(lista_entradax[i].get()))      # esse funciona para pegar o valor da caixa de entrada das coordenadas
                 yco.append(float(lista_entraday[i].get()))      # esse funciona para pegar o valor da caixa de entrada das coordenadas
+                x1 = float(xco[a-1])
+                y1 = float(yco[a-1])
+                x2 = float(xco[b-1])
+                y2 = float(yco[b-1])
+                l = math.sqrt((x2-x1)**2+(y2-y1)**2)
+                con = A*E/l
+                cos = (x2-x1)/l
+                sin = (y2-y1)/l
+    
+                snofel.append(a)
+                enofel.append(b)
+                lenofel.append(l)
+                elcon.append(con)
+                cosofel.append(cos)
+                sinofel.append(sin)
                 
                 print (xco[i])
                 print (yco[i])

@@ -97,6 +97,8 @@ displist=[]
 forcelist=[]
 lista_entradax=[]
 lista_entraday=[]
+inicial_barra=[]
+final_barra=[] 
 A = float('200')
 E = float('210000')
 
@@ -167,7 +169,9 @@ def main():
         global linhas
         global lista_entradax
         global lista_entraday  
-        linhas = linhas + 2                                              # adiciona 2 a variavel linhas para pular duas linhas na tela ante de imprimir a mensagem
+        linhas = linhas + 2
+        global inicial_barra 
+        global final_barra                                              # adiciona 2 a variavel linhas para pular duas linhas na tela ante de imprimir a mensagem
         tamanho_lista1 = len(lista_entradax)       
         A = 200
         print(A)
@@ -177,12 +181,17 @@ def main():
                 xco.append(float(lista_entradax[i].get()))      # esse funciona para pegar o valor da caixa de entrada das coordenadas
                 yco.append(float(lista_entraday[i].get()))      # esse funciona para pegar o valor da caixa de entrada das coordenadas
 
-        for i in range(te):  
-        a = int(input('Enter the Start node of element '+str(i+1)+' : '))
-        b = int(input('Enter the End node of element '+str(i+1)+' : '))
-
-                
-                 
+        for i in range(tamanho_lista1):  
+        label = ctk.CTkLabel (containerframe , text = "Entre com o primeiro nó" + str(i+1) + ":",text_color='white')      
+        label.grid (column = 0, row =linhas)
+        a = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
+        a.grid(column=1, row=+1)        
+        inicial_barra.append(int(a.get()))
+    
+    
+    
+    
+    
     return
 
 

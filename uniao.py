@@ -99,6 +99,7 @@ lista_entradax=[]
 lista_entraday=[]
 inicial_barra=[]
 final_barra=[] 
+entrada_vigas = '2'
 A = float('200')
 E = float('210000')
 
@@ -113,7 +114,7 @@ tn = 0
 
 def main():
    
-
+    global entrada_vigas
     # caixa de entrada de dados dos nós 
     label = ctk.CTkLabel (containerframe , text = "Numero de nós:",text_color='white',)
     label.grid (column = 0, row = 0)
@@ -171,20 +172,27 @@ def main():
         global lista_entraday  
         linhas = linhas + 2
         global inicial_barra 
+        global entrada_vigas
         global final_barra                                              # adiciona 2 a variavel linhas para pular duas linhas na tela ante de imprimir a mensagem
         tamanho_lista1 = len(lista_entradax)       
         A = 200
-        print(A)
+        num_barra =int(entrada_vigas.get())
+        print(num_barra)
 
         for i in range(tamanho_lista1):
             if lista_entradax[i].get() != '':
                 xco.append(float(lista_entradax[i].get()))      # esse funciona para pegar o valor da caixa de entrada das coordenadas
                 yco.append(float(lista_entraday[i].get()))      # esse funciona para pegar o valor da caixa de entrada das coordenadas
-                label = ctk.CTkLabel (containerframe , text = "Entre com o primeiro nó" + str(i+1) + ":",text_color='white')      
-                label.grid (column = 0, row =linhas)
-                a = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
-                a.grid(column=1, row=+1)        
-                inicial_barra.append(int(a.get()))
+        
+        for i in range(num_barra):
+            label = ctk.CTkLabel (containerframe , text = "Entre com o nó inicial e final " + str(i+1) + ":",text_color='white')      
+            label.grid (column = 0, row =linhas)
+            a = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
+            a.grid(column=1, row=linhas)        
+            inicial_barra.append(a)
+            b = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
+            b.grid(column=2, row=linhas)   
+            linhas = linhas + 2   
     
     
     

@@ -97,7 +97,7 @@ displist=[]
 forcelist=[]
 lista_entradax=[]
 lista_entraday=[]
-A = 5.4
+A = float('200')
 E = float('210000')
 
 numpymatlist=[]
@@ -142,13 +142,8 @@ def main():
 
         #print(tn)
         #print(te)
-        label = ctk.CTkLabel (containerframe , text = "Entre com o angulo da area em graus: ",text_color='white')      
-        label.grid (column = 0, row =linhas)   
-               
-        angulo = ctk.CTkEntry (containerframe,width=100,border_color='#071e26',)# cria uma caixa de entrada para pegar as coordenada do pontos
-        angulo.grid(column=1, row=linhas)
-        supA = angulo.get()
-        linhas = linhas + 2
+
+    
         for i in range(tn):
             label = ctk.CTkLabel (containerframe , text = "posição X e Y do nó " + str(i+1) + ":",text_color='white')      
             label.grid (column = 0, row =linhas)   
@@ -171,11 +166,10 @@ def main():
     def confirmar2(): 
         global linhas
         global lista_entradax
-        global lista_entraday
-        global supA
+        global lista_entraday  
         linhas = linhas + 2                                              # adiciona 2 a variavel linhas para pular duas linhas na tela ante de imprimir a mensagem
         tamanho_lista1 = len(lista_entradax)       
-        A = int(supA.get())
+        A = 200
         print(A)
 
         for i in range(tamanho_lista1):

@@ -16,7 +16,7 @@ for i in range(tn):
 ##print(xco)
 ##print(yco)
     
-A = float(input('Enter the Area of cross section in mm2: '))
+A = 200#float(input('Enter the Area of cross section in mm2: '))
 E = float('210000')
 
 snofel = [] #start node of elements

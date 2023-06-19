@@ -13,8 +13,8 @@ for i in range(tn):
     xco.append(x)
     yco.append(y)
 
-print(xco)
-print(yco)
+#print(xco)
+#print(yco)
     
 A = int(200)
 E = float('210000')
@@ -67,8 +67,8 @@ for i in range(te):
                       [-cs, -ss, cs, ss]])
 
     elstmat.append(mat)
-    print('matriz')
-    print(elstmat)
+    #print('matriz')
+    #print(elstmat)
 
 
 gstmatmap = []                          ## Global stiffness matrix mapping, gstmatmap will be the sqare matrix of tn*
@@ -86,15 +86,16 @@ for i in range(te):                     ## do this for each elements
             b = add[k]-1                ## addressing column of GST matrix for element(i)
             gmat[a,b] = elmat[j,k]      ## updating the values in GST matrix with EST matrix of element(i)
     gstmatmap.append(gmat)              ## storing the resultant matrix in gstmatmap list
-##    print(numpy.around(gmat, 3))
+   # print('numpy around')
+#print(numpy.around(gmat, 3))
 
 GSM = numpy.zeros((tn*2, tn*2))         ## creating an empyty GSM matrix
 for mat in gstmatmap:
     GSM = GSM+mat                       ## adding all the matrix in the gstmatmap list
                                             # this will result in assembled stiffness matrix of the truss structure
 
-print('\nGlobal Stiffness Matrix of the Truss\n')
-print(numpy.around(GSM, 3))
+#print('\nGlobal Stiffness Matrix of the Truss\n')
+#print(numpy.around(GSM, 3))
 
 #-----------------------Boundry condition and Loading---------------------#
 
@@ -110,8 +111,8 @@ for i in range(tn):
     d = str('fy')+str(i+1)
     forcelist.append(d)
 
-##print(displist)
-##print(forcelist)
+print(displist)
+print(forcelist)
     
 print('\n\n________________Support Specifications______________\n')
 

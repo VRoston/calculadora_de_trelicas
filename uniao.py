@@ -217,8 +217,7 @@ def main():
         botão_confirmar = ctk.CTkButton(containerframe, text="Ok", command=lambda: confirmar3()) # usa a função Button para criar um botão 
         botão_confirmar.grid(column=0, row=linhas+1)
 
-        botão_confirmar = ctk.CTkButton(containerframe, text="Ok33", command=lambda: confirmar4()) # usa a função Button para criar um botão 
-        botão_confirmar.grid(column=3, row=linhas+1)
+
     
     def confirmar3():
         global x1 , mat
@@ -242,12 +241,16 @@ def main():
         global cosofel
         global sinofel
         global te
+        global tn
         global b_inicial
         global b_final
         global inicial_barra
         global final_barra
         global elstmat
-        elstmat = []  
+        elstmat = [] 
+        gstmatmap = []  
+        displist = []
+        forcelist = []
         for i in range(te):
           
             b_inicial.append(int(inicial_barra[i].get()))      # esse funciona para pegar o valor da caixa de entrada das coordenadas
@@ -283,9 +286,42 @@ def main():
                       [-cc, -cs, cc, cs],
                       [-cs, -ss, cs, ss]])
             elstmat.append(mat)
-            print (elstmat)
+            #print (elstmat)
+# -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            m = snofel[i]*2                     ## taking the start node of element(i) and multiply by 2
+            n = enofel[i]*2                     ## taking the end node of element(i) and multiply by 2
+            add = [m-1, m, n-1, n]              ## Address of columns and rows of gstmatmap for elemet(i)
+                                            # if startnode is 1 and end node is 2 then add=[1,2,3,4]
+                                            # if startnode is 1 and end node is 3 then add=[1,2,5,6]
+            gmat = numpy.zeros((tn*2, tn*2))    ## global stiffness matrix loaded with zeros for element(i)
+            elmat = elstmat[i]                  ## taking the element stiffness matrix of element(i)
+            for j in range(4):                  
+                for k in range(4):              
+                    a = add[j]-1                ## addressing row of GST matrix for element(i)
+                    b = add[k]-1                ## addressing column of GST matrix for element(i)
+                    gmat[a,b] = elmat[j,k]      ## updating the values in GST matrix with EST matrix of element(i)
+            gstmatmap.append(gmat)              ## storing the resultant matrix in gstmatmap list
 
-            
+        GSM = numpy.zeros((tn*2, tn*2))         ## creating an empyty GSM matrix
+        for mat in gstmatmap:
+            GSM = GSM+mat                       ## adding all the matrix in the gstmatmap list
+                                            # this will result in assembled stiffness matrix of the truss structure
+
+        #print('\nGlobal Stiffness Matrix of the Truss\n')
+        #print(numpy.around(GSM, 3))
+ 
+        for i in range(tn):
+            a = str('u')+str(i+1)
+            displist.append(a)
+            b = str('v')+str(i+1)
+            displist.append(b)
+            c = str('fx')+str(i+1)
+            forcelist.append(c)
+            d = str('fy')+str(i+1)
+            forcelist.append(d)
+
+        print(displist)
+        print(forcelist)
 
 
 
@@ -298,9 +334,7 @@ def main():
 
 
 
-    def confirmar4(): 
-        return
-   
+
            
        
         

@@ -195,6 +195,7 @@ def botão_confirmar():                                               # função
         
         caixa = ctk.CTkEntry (containerframe,width=100,border_color='#071e26',)# cria uma caixa de entrada para pegar as cordenada do pontos
         caixa.grid(column=1, row=linhas)
+        
         lista_de_entradanos_x.append(caixa)                          # adicinando o valor que foi inserido na caixa de entrada a uma lista para salvar as cordenadas dos nós
             
                                         

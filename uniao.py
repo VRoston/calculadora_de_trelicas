@@ -99,9 +99,15 @@ lista_entradax=[]
 lista_entraday=[]
 inicial_barra=[]
 final_barra=[] 
+b_inicial =[]
+b_final = []
 entrada_vigas = '2'
 A = float('200')
 E = float('210000')
+b = 0
+l = 0
+a1 = 0
+b1 = 0
 
 numpymatlist=[]
 linhas = 1
@@ -141,7 +147,7 @@ def main():
         linhas = linhas + 2
         tn = int(entrada_no.get()) 
         te = int(entrada_vigas.get()) 
-
+        
 
         #print(tn)
         #print(te)
@@ -174,23 +180,31 @@ def main():
         global inicial_barra 
         global entrada_vigas
         global final_barra                                              # adiciona 2 a variavel linhas para pular duas linhas na tela ante de imprimir a mensagem
+        global a1
+        global b1
+        global xco
+        global yco
         tamanho_lista1 = len(lista_entradax)       
         num_barra =int(entrada_vigas.get())
+        print('numeros de barras')
         print(num_barra)
 
         for i in range(tamanho_lista1):
             if lista_entradax[i].get() != '':
                 xco.append(float(lista_entradax[i].get()))      # esse funciona para pegar o valor da caixa de entrada das coordenadas
                 yco.append(float(lista_entraday[i].get()))      # esse funciona para pegar o valor da caixa de entrada das coordenadas
+                
         
         for i in range(num_barra):
             label = ctk.CTkLabel (containerframe , text = "Entre com o nó inicial e final " + str(i+1) + ":",text_color='white')      
             label.grid (column = 0, row =linhas)
-            a = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
-            a.grid(column=1, row=linhas)        
-            inicial_barra.append(a)
-            b = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
-            b.grid(column=2, row=linhas)   
+            a1 = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
+            a1.grid(column=1, row=linhas)        
+            inicial_barra.append(a1)
+
+            b1 = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
+            b1.grid(column=2, row=linhas)   
+            final_barra.append(b1)
             linhas = linhas + 2   
     
     
@@ -202,7 +216,8 @@ def main():
         global y1
         global x2
         global y2
-        global con
+        global xcon
+        global ycon
         global a 
         global b
         global A
@@ -217,32 +232,54 @@ def main():
         global elcon
         global cosofel
         global sinofel
+        global te
+        global b_inicial
+        global b_final
+        global inicial_barra
+        global final_barra
+        
+        for i in range(te):
+          
+            b_inicial.append(int(inicial_barra[i].get()))      # esse funciona para pegar o valor da caixa de entrada das coordenadas
+            b_final.append(int(final_barra[i].get()))      # esse funciona para pegar o valor da caixa de entrada das coordenadas
+                
+            print(xco)
+            print(yco)
 
-        a = int(a.get())
-        b = int(b.get())
-        print
-        x1 = float(xco[a-1])
-        y1 = float(yco[a-1])
-        x2 = float(xco[b-1])
-        y2 = float(yco[b-1])
-        l = math.sqrt((x2-x1)**2+(y2-y1)**2)
-        con = A*E/l
-        cos = (x2-x1)/l
-        sin = (y2-y1)/l
+        for i in range(te):  
+            a = b_inicial[i]
+            b = b_final[i]
+            print(a)
+            print(b)
+            x1 = float(xco[a-1])
+            y1 = float(yco[a-1])
+            x2 = float(xco[b-1])
+            y2 = float(yco[b-1])
+            l = math.sqrt((x2-x1)**2+(y2-y1)**2)
+            con = A*E/l
+            cos = (x2-x1)/l
+            sin = (y2-y1)/l
     
-        snofel.append(a)
-        enofel.append(b)
-        lenofel.append(l)
-        elcon.append(con)
-        cosofel.append(cos)
-        sinofel.append(sin)
+            snofel.append(a)
+            enofel.append(b)
+            lenofel.append(l)
+            elcon.append(con)
+            cosofel.append(cos)
+            sinofel.append(sin)
+   
+           
+            print("----------------------")
+            #print(snofel)
+            #print(enofel)
+            #print(lenofel)
+            #print(elcon)
+            #print(cosofel)
+            #print(sinofel)
 
 
-
-        return 
+        
     
 
-    return
 
 
 main()

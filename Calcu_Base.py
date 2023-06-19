@@ -13,10 +13,10 @@ for i in range(tn):
     xco.append(x)
     yco.append(y)
 
-##print(xco)
-##print(yco)
+print(xco)
+print(yco)
     
-A = float(input('Enter the Area of cross section in mm2: '))
+A = int(200)
 E = float('210000')
 
 snofel = [] #start node of elements
@@ -29,6 +29,8 @@ sinofel = [] #sin of element
 for i in range(te):  
     a = int(input('Enter the Start node of element '+str(i+1)+' : '))
     b = int(input('Enter the End node of element '+str(i+1)+' : '))
+    print(a)
+    print(b)
     x1 = float(xco[a-1])
     y1 = float(yco[a-1])
     x2 = float(xco[b-1])
@@ -45,12 +47,12 @@ for i in range(te):
     cosofel.append(cos)
     sinofel.append(sin)
     
-##print(snofel)
-##print(enofel)
-##print(lenofel)
-##print(elcon)
-##print(cosofel)
-##print(sinofel)
+    #print(snofel)
+    #print(enofel)
+    #print(lenofel)
+    #print(elcon)
+    #print(cosofel)
+    #print(sinofel)
 
 elstmat = [] #element stiffness matrix
 

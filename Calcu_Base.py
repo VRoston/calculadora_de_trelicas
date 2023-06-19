@@ -118,9 +118,10 @@ print('\n\n________________Support Specifications______________\n')
 
 dispmat = numpy.ones((tn*2,1))
 tsupn = int(input('Enter the total number of nodes having supports : ')) #total number of supported nodes
-supcondition = ['P = pinned',
-                'H = Horizonal restrained (vertical is free to move)',
-                'V = Vertical restrained (Horizontal is free to move)']
+supcondition = ['Entre com o tipo do apoio:',
+                'F = fixo',
+                'H = Horizontal',
+                'V = Vertical ']
    
 for i in range(tsupn):
     supn = int(input('\nEnter the node number of suuport : ')) #supported node

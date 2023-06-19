@@ -101,6 +101,22 @@ inicial_barra=[]
 final_barra=[] 
 b_inicial =[]
 b_final = []
+x1 = 0.0
+x2 = 0.0 
+y1 = 0.0 
+y2 = 0.0
+xcon = 0.0
+ycon = 0.0
+a = 0.0
+b = 0.0
+A = 0.0
+E = 0.0 
+lq = 0.0
+linhas = 0.0 
+cos = 0.0
+sin = 0.0 
+te = 0.0
+ 
 mat = numpy.array ([[0, 0, 0, 0],
                 [0, 0, 0, 0],
                 [0, 0, 0, 0],
@@ -119,6 +135,10 @@ numpymatlist=[]
 linhas = 1
 te = 0
 tn = 0
+
+tsupn1 = 0
+tsupn = 0
+
 ####____________________________________________________________________________________####
 
 
@@ -214,10 +234,12 @@ def main():
             linhas = linhas + 2   
     
     
-        botão_confirmar = ctk.CTkButton(containerframe, text="Ok", command=lambda: confirmar3()) # usa a função Button para criar um botão 
+        botão_confirmar = ctk.CTkButton(containerframe, text="Calcular", command=lambda: confirmar3()) # usa a função Button para criar um botão 
         botão_confirmar.grid(column=0, row=linhas+1)
-
-
+        
+        botão_confirmar = ctk.CTkButton(containerframe, text="Continuar", command=lambda: confirmar4()) # usa a função Button para criar um botão 
+        botão_confirmar.grid(column=2, row=linhas+1)
+        
     
     def confirmar3():
         global x1 , mat
@@ -322,34 +344,111 @@ def main():
 
         print(displist)
         print(forcelist)
+    def confirmar4():
+        global x1 , mat
+        global y1
+        global x2
+        global y2
+        global xcon
+        global ycon
+        global a 
+        global b
+        global A
+        global E
+        global lq
+        global linhas
+        global cos
+        global sin
+        global snofel
+        global enofel
+        global lenofel
+        global elcon
+        global cosofel
+        global sinofel
+        global te
+        global tn
+        global b_inicial
+        global b_final
+        global inicial_barra
+        global final_barra
+        global elstmat
+        global tsupn
+        global supcondition
+        global tsupn1
+        
+        linhas = linhas+2
+        
+        label = ctk.CTkLabel (containerframe , text = "Entre com o numero total de apoios:",text_color='white')      
+        label.grid (column = 0, row =linhas)
+        tsupn1 = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
+        tsupn1.grid (column = 2, row =linhas)
 
+        
+        
+        
+        botão_confirmar = ctk.CTkButton(containerframe, text="ok", command=lambda: confirmar5()) # usa a função Button para criar um botão 
+        botão_confirmar.grid(column=4, row=linhas+1)
 
+        
+         
+    def confirmar5():
+        global x1 , mat
+        global y1
+        global x2
+        global y2
+        global xcon
+        global ycon
+        global a 
+        global b
+        global A
+        global E
+        global lq
+        global linhas
+        global cos
+        global sin
+        global snofel
+        global enofel
+        global lenofel
+        global elcon
+        global cosofel
+        global sinofel
+        global te
+        global tn
+        global b_inicial
+        global b_final
+        global inicial_barra
+        global final_barra
+        global elstmat
+        global tsupn
+        global supcondition
+        global tsupn1
+        tsupn = int(tsupn1.get())
+        print(tsupn)
+        
+        dispmat = numpy.ones((tn*2,1))
 
+        t = 'Digita "F" para suporte Fixo\nDigita "H" para suporte horizontal (vertical é livre para se mover)\nDigita "V" para suporte Vertical (Horizontal é livre para se mover)'
+        infolbl = ctk.CTkLabel(containerframe, text=t,text_color='white')
+        infolbl.grid(row=linhas+1, column=0, columnspan=5, sticky='nsew')
 
-
-
-
-
-
-
-
-
-
+        for i in range(tsupn): 
+        
+            label = ctk.CTkLabel (containerframe , text = 'Entre com o numero do nó :',text_color='white')      
+            label.grid (column = 0, row =linhas)
+            supn = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
+            supn.grid (column = 1, row =linhas)
+            
+            linhas = linhas+2
+            
+            label = ctk.CTkLabel (containerframe ,text = 'tipo de pino',text_color='white')      
+            label.grid (column = 0, row =linhas)
+            condition = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
+            condition.grid (column = 3, row =linhas)
+            linhas = linhas+2
            
-       
-        
-          
-  
-  
-    
-
-   
-
+        botão_confirmar = ctk.CTkButton(containerframe, text="ok", command=lambda: confirmar6()) # usa a função Button para criar um botão 
+        botão_confirmar.grid(column=4, row=linhas+1)
 
         
-    
-
-
-
 main()
 root.mainloop()

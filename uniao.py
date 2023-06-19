@@ -180,13 +180,11 @@ def main():
             if lista_entradax[i].get() != '':
                 xco.append(float(lista_entradax[i].get()))      # esse funciona para pegar o valor da caixa de entrada das coordenadas
                 yco.append(float(lista_entraday[i].get()))      # esse funciona para pegar o valor da caixa de entrada das coordenadas
-
-        for i in range(tamanho_lista1):  
-        label = ctk.CTkLabel (containerframe , text = "Entre com o primeiro nó" + str(i+1) + ":",text_color='white')      
-        label.grid (column = 0, row =linhas)
-        a = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
-        a.grid(column=1, row=+1)        
-        inicial_barra.append(int(a.get()))
+                label = ctk.CTkLabel (containerframe , text = "Entre com o primeiro nó" + str(i+1) + ":",text_color='white')      
+                label.grid (column = 0, row =linhas)
+                a = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
+                a.grid(column=1, row=+1)        
+                inicial_barra.append(int(a.get()))
     
     
     

@@ -119,10 +119,7 @@ te = 0.0
 tlon = 0
 tlon1 = 0
  
-mat = numpy.array ([[0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0]])
+
 
 
 
@@ -242,15 +239,15 @@ def main():
             linhas = linhas + 2   
     
     
-        #botão_confirmar = ctk.CTkButton(containerframe, text="Calcular", command=lambda: confirmar3()) # usa a função Button para criar um botão 
-        #botão_confirmar.grid(column=0, row=linhas+1)
+        botão_confirmar = ctk.CTkButton(containerframe, text="Calcular", command=lambda: confirmar3()) # usa a função Button para criar um botão 
+        botão_confirmar.grid(column=0, row=linhas+1)
         
         botão_confirmar = ctk.CTkButton(containerframe, text="Continuar", command=lambda: confirmar4()) # usa a função Button para criar um botão 
         botão_confirmar.grid(column=2, row=linhas+1)
         
     
     def confirmar3():
-        global condtion2, supn2, supn, condtion , sunp1 , condition1 ,x1 , mat, y1, x2, y2, xcon, ycon, a, b, A, E, lq, linhas, cos, sin, snofel, enofel, lenofel, elcon, cosofel, sinofel, te, tn, b_inicial, b_final, inicial_barra, final_barra, elstmat
+        global GSM,mat, condtion2, supn2, supn, condtion , sunp1 , condition1 ,x1 , mat, y1, x2, y2, xcon, ycon, a, b, A, E, lq, linhas, cos, sin, snofel, enofel, lenofel, elcon, cosofel, sinofel, te, tn, b_inicial, b_final, inicial_barra, final_barra, elstmat
 
         elstmat = [] 
         gstmatmap = []  
@@ -296,8 +293,8 @@ def main():
             m = snofel[i]*2                     ## taking the start node of element(i) and multiply by 2
             n = enofel[i]*2                     ## taking the end node of element(i) and multiply by 2
             add = [m-1, m, n-1, n]              ## Address of columns and rows of gstmatmap for elemet(i)
-                                            # if startnode is 1 and end node is 2 then add=[1,2,3,4]
-                                            # if startnode is 1 and end node is 3 then add=[1,2,5,6]
+                                                 # if startnode is 1 and end node is 2 then add=[1,2,3,4]
+                                                # if startnode is 1 and end node is 3 then add=[1,2,5,6]
             gmat = numpy.zeros((tn*2, tn*2))    ## global stiffness matrix loaded with zeros for element(i)
             elmat = elstmat[i]                  ## taking the element stiffness matrix of element(i)
             for j in range(4):                  
@@ -325,8 +322,8 @@ def main():
             d = str('fy')+str(i+1)
             forcelist.append(d)
 
-        print(displist)
-        print(forcelist)
+        #print(displist)
+        #print(forcelist)
     def confirmar4():
         global lon, lon1, lon2 ,fx , fx1 ,fx1 , fy , fy1 , fy2, dispmat, condtion2, supn2, supn, condtion , sunp1 , condition1 ,x1 , mat, y1, x2, y2, xcon, ycon, a, b, A, E, lq, linhas, cos, sin, snofel, enofel, lenofel, elcon, cosofel, sinofel, te, tn, b_inicial, b_final, inicial_barra, final_barra, elstmat, tsupn, supcondition, tsupn1
 
@@ -347,7 +344,7 @@ def main():
         
          
     def confirmar5():
-        global lon, lon1, lon2 ,fx , fx1 ,fx1 , fy , fy1 , fy2, dispmat, tlon1,condtion2, supn2, supn, condtion , sunp1 , condition1 , x1 , mat, y1, x2, y2, xcon, ycon, a, b, A, E, lq, linhas, cos, sin, snofel, enofel, lenofel, elcon, cosofel, sinofel, te, tn, b_inicial, b_final, inicial_barra, final_barra, elstmat, tsupn, supcondition, tsupn1
+        global mat,lon, lon1, lon2 ,fx , fx1 ,fx1 , fy , fy1 , fy2, dispmat, tlon1,condtion2, supn2, supn, condtion , sunp1 , condition1 , x1 , mat, y1, x2, y2, xcon, ycon, a, b, A, E, lq, linhas, cos, sin, snofel, enofel, lenofel, elcon, cosofel, sinofel, te, tn, b_inicial, b_final, inicial_barra, final_barra, elstmat, tsupn, supcondition, tsupn1
 
 
         tsupn = int(tsupn1.get())
@@ -398,7 +395,7 @@ def main():
 
 
     def confirmar6():
-        global lon, lon1, lon2 ,fx , fx1 ,fx1 , fy , fy1 , fy2,   dispmat,  tlon1,condtion2, supn2, supn, condtion , sunp1 , condition1 ,x1 , mat , y1 , x2 , y2 , xcon , ycon , a , b , A , E , lq , linhas , cos , sin , snofel , enofel , lenofel , elcon , cosofel , sinofel , te , tn , b_inicial , b_final , inicial_barra , final_barra , elstmat , tsupn , supcondition , tsupn1,tlon1
+        global mat,lon, lon1, lon2 ,fx , fx1 ,fx1 , fy , fy1 , fy2, dispmat,  tlon1,condtion2, supn2, supn, condtion , sunp1 , condition1 ,x1 , mat , y1 , x2 , y2 , xcon , ycon , a , b , A , E , lq , linhas , cos , sin , snofel , enofel , lenofel , elcon , cosofel , sinofel , te , tn , b_inicial , b_final , inicial_barra , final_barra , elstmat , tsupn , supcondition , tsupn1,tlon1,tlon
         tlon = int(tlon1.get())
         forcemat = numpy.zeros((tn*2,1))
         dispmat = numpy.ones((tn*2,1))
@@ -418,33 +415,150 @@ def main():
         else:
             print('Please enter valid entries')
 
-    #linhas = linhas + 2
+        linhas = linhas + 2
     
     # lon, fx e fy vão virar vetores e vmaos precisar de lon1 e lon2 tambem fx1 e fx2 e fy1 e fy2
         for i in range(tlon):
         
-            label = ctk.CTkLabel(containerframe, text='Entre com o numero do no com carga',text_color='white')
+            linhas = linhas + 2
+            label = ctk.CTkLabel(containerframe, text='Entre com o numero do nó com carga',text_color='white')
             label.grid(row=linhas+1, column=0)
             lon1 = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
             lon1.grid (column = 1, row =linhas+1)
             lon2.append(lon1)
-        
-            label = ctk.CTkLabel(containerframe, text='Entre com o numero do no com carga',text_color='white')
+            
+            linhas = linhas + 2
+            
+            label = ctk.CTkLabel(containerframe, text='Entre com a carga horizontal em N:',text_color='white')
             label.grid(row=linhas+1, column=0)
             fx1 = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
             fx1.grid (column = 1, row =linhas+1)
             fx2.append(fx1)
-        
-            label = ctk.CTkLabel(containerframe, text='Entre com o numero do no com carga',text_color='white')
+            
+            linhas = linhas + 2
+            
+            label = ctk.CTkLabel(containerframe, text='Entre com a carga vertical em N:',text_color='white')
             label.grid(row=linhas+1, column=0)
             fy1 = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
             fy1.grid (column = 1, row =linhas+1)
             fy2.append(fy1)
-        #precisa criar outra função para o botão de calcular com as variaveis de lon e fx e fy
-            forcemat[lon2[i]*2-2, 0] = fx2[i]
-            forcemat[lon2[i]*2-1, 0] = fy2[i]
+            
+        botão_confirmar = ctk.CTkButton(containerframe, text="ok", command=lambda: confirmar7()) # usa a função Button para criar um botão 
+        botão_confirmar.grid(column=4, row=linhas+1)
+        
+    def confirmar7():
+        global lon, lon1, lon2 ,fx , fx1 ,fx1 , fy , fy1 , fy2,   dispmat,  tlon1,condtion2, supn2
+        global supn, condtion , sunp1 , condition1 ,x1 , mat , y1 , x2 , y2 , xcon , ycon 
+        global a , b , A , E , lq , linhas , cos , sin , snofel , enofel , lenofel , elcon , cosofel , sinofel , te , tn
+        global b_inicial , b_final , inicial_barra , final_barra , elstmat , tsupn , supcondition , tsupn1, tlon, GSM,rdispmat,mat
+        no_carga = len(lon2)
+        
+        forcemat = numpy.zeros((tn*2,1))
+        for i in range(no_carga):
+                fx.append(float(fx2[i].get()))      # esse funciona para pegar o valor da caixa de entrada das coordenadas
+                fy.append(float(fy2[i].get())) 
+        for i in range(no_carga):
+                lon.append(int(lon2[i].get()))      # esse funciona para pegar o valor da caixa de entrada das coordenadas
+               
+        for i in range(tlon):      
+            #precisa criar outra função para o botão de calcular com as variaveis de lon e fx e fy
+            forcemat[lon[i]*2-2, 0] = fx[i]
+            forcemat[lon[i]*2-1, 0] = fy[i]
         print ('forcemat')
         print(forcemat)  
         ##erro ele ta falando list index out of range para a lista fx e fy provavelmente
+
+        rcdlist = []
+        for i in range(tn*2):
+            if dispmat[i,0] == 0:
+                rcdlist.append(i)
+
+        rrgsm = numpy.delete(GSM, rcdlist, 0) #row reduction
+        crgsm = numpy.delete(rrgsm, rcdlist, 1) #column reduction
+        rgsm = crgsm #reduced global stiffness matrix
+        rforcemat = numpy.delete(forcemat, rcdlist, 0) #reduced force mat
+        rdispmat = numpy.delete(dispmat, rcdlist, 0) #reduced disp mat
+
+        ###_______________Solving____________________###
+
+        dispresult = numpy.matmul(numpy.linalg.inv(rgsm), rforcemat)
+        rin = 0
+        for i in range(tn*2):
+            if dispmat[i,0] == 1:
+                dispmat[i,0] = dispresult[rin,0]
+                rin = rin+1
+        ##print(dispmat)
+
+        forceresult = numpy.matmul(GSM, dispmat)
+        ##print(forceresult)
+
+        print('\n\nGlobal Stiffness Matrix of the Truss\n')
+        print(GSM)
+        print('\n\nDisplacement matrix of nodes\n')
+        print(dispmat)
+        print('\n\nForce matrix of nodes\n')
+        print(forceresult)
+
+        ##____________________new co ordinates of nodes____________####
+
+        newxco = []
+        newyco = []
+        count = 0
+        for i in range(tn):
+            k = xco[i]+dispmat[count,0]
+            newxco.append(k)
+            count = count+1
+            l = yco[i]+dispmat[count,0]
+            newyco.append(l)
+            count = count+1
+
+        ###____________________new length of memebers______________####
+            
+        newlenofel = []
+        for i in range(te):
+            a, b = snofel[i], enofel[i]
+            x1 = float(newxco[a-1])
+            y1 = float(newyco[a-1])
+            x2 = float(newxco[b-1])
+            y2 = float(newyco[b-1])
+            l = math.sqrt((x2-x1)**2+(y2-y1)**2)
+            newlenofel.append(l)
+
+        ##print(newlenofel)
+        ##print(lenofel)
+
+        ###______________strain in elements_______________________###
+            
+        numpy.set_printoptions(3, suppress=False)
+
+        elstrain = numpy.zeros((te,1))
+        for i in range(te):
+            elstrain[i,0] = (newlenofel[i]-lenofel[i])/(lenofel[i])
+        print('\n***Positive is Tensile\nNegetive is Compressive***\n')
+
+        print('\n\nStrain in the elements')
+        print(elstrain)
+        numpy.set_printoptions(3, suppress=True)
+
+        ###__________________stress in elements______________________###
+
+        elstress = numpy.zeros((te,1))
+        for i in range(te):
+            elstress[i,0] = E * elstrain[i,0]
+            
+        print('\n\nStress in the elements')
+        print(elstress)
+
+        ###_________________Member forces____________________#########
+
+        eforce = numpy.zeros((te,1))
+        for i in range(te):
+            eforce[i,0] = A * elstress[i,0]
+
+        print('\n\nForce in the element')
+        print(eforce)
+            
+
+        
 main()
 root.mainloop()

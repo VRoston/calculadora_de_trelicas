@@ -131,7 +131,7 @@ for i in range(tsupn):
         
 
     condition = str(input('\nEnter the condition of the support : '))
-    if condition in['P', 'p']:
+    if condition in['F', 'f']:
         dispmat[supn*2-2, 0] = 0
         dispmat[supn*2-1, 0] = 0
     elif condition in['H', 'h']:

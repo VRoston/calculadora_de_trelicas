@@ -155,7 +155,7 @@ for i in range(tlon):
     forcemat[lon*2-2, 0] = fx
     forcemat[lon*2-1, 0] = fy
 
-##print(forcemat)    
+print(forcemat)    
 
 
 ###_________________Matrix Reduction_________________###

@@ -153,6 +153,15 @@ condtion2 = []
 supn2 = []
 
 dispmat = []
+lon = []
+fx = []
+fy = []
+fx1 = []
+fy1 = []
+fx2 = []
+fy2 = []
+lon1 = []
+lon2 = []
 ####____________________________________________________________________________________####
 
 
@@ -319,7 +328,7 @@ def main():
         print(displist)
         print(forcelist)
     def confirmar4():
-        global dispmat, condtion2, supn2, supn, condtion , sunp1 , condition1 ,x1 , mat, y1, x2, y2, xcon, ycon, a, b, A, E, lq, linhas, cos, sin, snofel, enofel, lenofel, elcon, cosofel, sinofel, te, tn, b_inicial, b_final, inicial_barra, final_barra, elstmat, tsupn, supcondition, tsupn1
+        global lon, lon1, lon2 ,fx , fx1 ,fx1 , fy , fy1 , fy2, dispmat, condtion2, supn2, supn, condtion , sunp1 , condition1 ,x1 , mat, y1, x2, y2, xcon, ycon, a, b, A, E, lq, linhas, cos, sin, snofel, enofel, lenofel, elcon, cosofel, sinofel, te, tn, b_inicial, b_final, inicial_barra, final_barra, elstmat, tsupn, supcondition, tsupn1
 
         
         linhas = linhas+2
@@ -338,7 +347,7 @@ def main():
         
          
     def confirmar5():
-        global dispmat, tlon1,condtion2, supn2, supn, condtion , sunp1 , condition1 , x1 , mat, y1, x2, y2, xcon, ycon, a, b, A, E, lq, linhas, cos, sin, snofel, enofel, lenofel, elcon, cosofel, sinofel, te, tn, b_inicial, b_final, inicial_barra, final_barra, elstmat, tsupn, supcondition, tsupn1
+        global lon, lon1, lon2 ,fx , fx1 ,fx1 , fy , fy1 , fy2, dispmat, tlon1,condtion2, supn2, supn, condtion , sunp1 , condition1 , x1 , mat, y1, x2, y2, xcon, ycon, a, b, A, E, lq, linhas, cos, sin, snofel, enofel, lenofel, elcon, cosofel, sinofel, te, tn, b_inicial, b_final, inicial_barra, final_barra, elstmat, tsupn, supcondition, tsupn1
 
 
         tsupn = int(tsupn1.get())
@@ -389,7 +398,7 @@ def main():
 
 
     def confirmar6():
-        global dispmat,  tlon1,condtion2, supn2, supn, condtion , sunp1 , condition1 ,x1 , mat , y1 , x2 , y2 , xcon , ycon , a , b , A , E , lq , linhas , cos , sin , snofel , enofel , lenofel , elcon , cosofel , sinofel , te , tn , b_inicial , b_final , inicial_barra , final_barra , elstmat , tsupn , supcondition , tsupn1,tlon1
+        global lon, lon1, lon2 ,fx , fx1 ,fx1 , fy , fy1 , fy2,   dispmat,  tlon1,condtion2, supn2, supn, condtion , sunp1 , condition1 ,x1 , mat , y1 , x2 , y2 , xcon , ycon , a , b , A , E , lq , linhas , cos , sin , snofel , enofel , lenofel , elcon , cosofel , sinofel , te , tn , b_inicial , b_final , inicial_barra , final_barra , elstmat , tsupn , supcondition , tsupn1,tlon1
         tlon = int(tlon1.get())
         forcemat = numpy.zeros((tn*2,1))
         dispmat = numpy.ones((tn*2,1))
@@ -408,18 +417,34 @@ def main():
             dispmat[supn[i]*2-1, 0] = 0
         else:
             print('Please enter valid entries')
-        print('imprimindo dispmat')
-        print(dispmat)
-        print('imprimindo')
-        print(tsupn)
 
+    #linhas = linhas + 2
     
-    for i in range(tlon):
-            lon = int(input('\nEnter the node number of Loading : ')) #Loaded node
-            fx = float(input('Enter the Horizontal load at this node in N : '))
-            fy = float(input('Enter the Vertical load at this node in N : '))
-            forcemat[lon*2-2, 0] = fx
-            forcemat[lon*2-1, 0] = fy
+    # lon, fx e fy vão virar vetores e vmaos precisar de lon1 e lon2 tambem fx1 e fx2 e fy1 e fy2
+        for i in range(tlon):
         
+            label = ctk.CTkLabel(containerframe, text='Entre com o numero do no com carga',text_color='white')
+            label.grid(row=linhas+1, column=0)
+            lon1 = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
+            lon1.grid (column = 1, row =linhas+1)
+            lon2.append(lon1)
+        
+            label = ctk.CTkLabel(containerframe, text='Entre com o numero do no com carga',text_color='white')
+            label.grid(row=linhas+1, column=0)
+            fx1 = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
+            fx1.grid (column = 1, row =linhas+1)
+            fx2.append(fx1)
+        
+            label = ctk.CTkLabel(containerframe, text='Entre com o numero do no com carga',text_color='white')
+            label.grid(row=linhas+1, column=0)
+            fy1 = ctk.CTkEntry (containerframe,width=100,border_color='#030e11',)                            # cria uma caixa de entrada do tamanho 10
+            fy1.grid (column = 1, row =linhas+1)
+            fy2.append(fy1)
+        #precisa criar outra função para o botão de calcular com as variaveis de lon e fx e fy
+            forcemat[lon2[i]*2-2, 0] = fx2[i]
+            forcemat[lon2[i]*2-1, 0] = fy2[i]
+        print ('forcemat')
+        print(forcemat)  
+        ##erro ele ta falando list index out of range para a lista fx e fy provavelmente
 main()
 root.mainloop()

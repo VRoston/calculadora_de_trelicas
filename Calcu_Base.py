@@ -3,13 +3,13 @@ import numpy
 
 numpy.set_printoptions(3, suppress=True)
 
-tn = int(input('Enter the total number of nodes : ')) #total nodes
-te = int(input('Enter the total number of Elements : ')) #total elements
+tn = int(input('Entre com o numero total de nos:')) #total nodes
+te = int(input('Entre com o numero total de elementos: ')) #total elements
 xco = [] #x co ordinate of nodes
 yco = [] #y co ordinate of nodes
 for i in range(tn):
-    x = float(input('Enter the x co-ordinate of node '+str(i+1)+' in mm : '))
-    y = float(input('Enter the y co-ordinate of node '+str(i+1)+' in mm : '))
+    x = float(input('Entre com a coordenada x do no '+str(i+1)+' in mm : '))
+    y = float(input('Entre com a coordenada y do no '+str(i+1)+' in mm : '))
     xco.append(x)
     yco.append(y)
 
@@ -27,8 +27,8 @@ cosofel = [] #cos of element
 sinofel = [] #sin of element
 
 for i in range(te):  
-    a = int(input('Enter the Start node of element '+str(i+1)+' : '))
-    b = int(input('Enter the End node of element '+str(i+1)+' : '))
+    a = int(input('Entre com o no inicial da barra '+str(i+1)+' : '))
+    b = int(input('Entre com o no final da barra '+str(i+1)+' : '))
    # print(a)
    # print(b)
     x1 = float(xco[a-1])
@@ -111,27 +111,30 @@ for i in range(tn):
     d = str('fy')+str(i+1)
     forcelist.append(d)
 
-print(displist)
-print(forcelist)
+#print(displist)
+#print(forcelist)
     
-print('\n\n________________Support Specifications______________\n')
+print('\n\n________________Espcificacoes do suporte______________\n')
 
 dispmat = numpy.ones((tn*2,1))
-tsupn = int(input('Enter the total number of nodes having supports : ')) #total number of supported nodes
+tsupn = int(input('Entre com o numero total de nos com suporte : ')) #total number of supported nodes
 supcondition = ['Entre com o tipo do apoio:',
-                'F = fixo',
+                'F = Fixo',
                 'H = Horizontal',
                 'V = Vertical ']
 print('imprimindo')
 print(tsupn)
 for i in range(tsupn):
-    supn = int(input('\nEnter the node number of suuport : ')) #supported node
+    supn = int(input('\nEntre com o numero do no com suporte : ')) #supported node
     for a in supcondition:
         print(a)
         
 
+
     condition = str(input('\nEnter the condition of the support : '))
-    if condition in['F', 'f']:
+
+    condition = str(input('\nEntre com a condicao do suporteEnter the condition of the support : '))
+    if condition in['P', 'p']:
         dispmat[supn*2-2, 0] = 0
         dispmat[supn*2-1, 0] = 0
     elif condition in['H', 'h']:
@@ -139,19 +142,19 @@ for i in range(tsupn):
     elif condition in['V', 'v']:
         dispmat[supn*2-1, 0] = 0
     else:
-        print('Please enter valid entries')
+        print('Por favor, insira entradas válidas')
 print('imprimindo dispmat')
 print(dispmat)
 
 
-print('\n_________________Loading____________________\n')
+print('\n_________________Carga____________________\n')
 forcemat = numpy.zeros((tn*2,1))
-tlon = int(input('Enter the total number of loaded nodes : ')) #total number of loaded nodes
+tlon = int(input('Entre com o numero total de nos com carga : ')) #total number of loaded nodes
 
 for i in range(tlon):
-    lon = int(input('\nEnter the node number of Loading : ')) #Loaded node
-    fx = float(input('Enter the Horizontal load at this node in N : '))
-    fy = float(input('Enter the Vertical load at this node in N : '))
+    lon = int(input('\nEntre com o numero do no com a carga : ')) #Loaded node
+    fx = float(input('Entre com a carga horizontal do no : '))
+    fy = float(input('Entre com a carga vertical do no : '))
     forcemat[lon*2-2, 0] = fx
     forcemat[lon*2-1, 0] = fy
 
@@ -185,11 +188,11 @@ for i in range(tn*2):
 forceresult = numpy.matmul(GSM, dispmat)
 ##print(forceresult)
 
-print('\n\nGlobal Stiffness Matrix of the Truss\n')
+print('\n\nMatriz de rigidez global da trelica\n')
 print(GSM)
-print('\n\nDisplacement matrix of nodes\n')
+print('\n\nMatriz de deslocamento dos nos\n')
 print(dispmat)
-print('\n\nForce matrix of nodes\n')
+print('\n\nMatriz de forca dos nos\n')
 print(forceresult)
 
 ##____________________new co ordinates of nodes____________####
@@ -227,9 +230,9 @@ numpy.set_printoptions(3, suppress=False)
 elstrain = numpy.zeros((te,1))
 for i in range(te):
     elstrain[i,0] = (newlenofel[i]-lenofel[i])/(lenofel[i])
-print('\n***Positive is Tensile\nNegetive is Compressive***\n')
+print('\n***Positivo e tracao\nNegativo e compressao***\n')
 
-print('\n\nStrain in the elements')
+print('\n\nTensao nos elementos')
 print(elstrain)
 numpy.set_printoptions(3, suppress=True)
 
@@ -239,7 +242,7 @@ elstress = numpy.zeros((te,1))
 for i in range(te):
     elstress[i,0] = E * elstrain[i,0]
     
-print('\n\nStress in the elements')
+print('\n\nEstresse nos elementos')
 print(elstress)
 
 ###_________________Member forces____________________#########
@@ -248,7 +251,7 @@ eforce = numpy.zeros((te,1))
 for i in range(te):
     eforce[i,0] = A * elstress[i,0]
 
-print('\n\nForce in the element')
+print('\n\nForca nos membros')
 print(eforce)
 
 ##numpy.delete(mat, row, 0)

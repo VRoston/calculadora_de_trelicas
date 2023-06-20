@@ -111,8 +111,8 @@ for i in range(tn):
     d = str('fy')+str(i+1)
     forcelist.append(d)
 
-print(displist)
-print(forcelist)
+#print(displist)
+#print(forcelist)
     
 print('\n\n________________Espcificacoes do suporte______________\n')
 
@@ -125,7 +125,7 @@ supcondition = ['Entre com o tipo do apoio:',
 print('imprimindo')
 print(tsupn)
 for i in range(tsupn):
-    supn = int(input('\nEntre com o numero do suporte : ')) #supported node
+    supn = int(input('\nEntre com o numero do no com suporte : ')) #supported node
     for a in supcondition:
         print(a)
         

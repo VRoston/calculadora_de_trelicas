@@ -3,10 +3,10 @@ import numpy
 
 numpy.set_printoptions(3, suppress=True)
 
-tn = int(input('Entre com o numero total de nos:')) #total nodes
-te = int(input('Entre com o numero total de elementos: ')) #total elements
-xco = [] #x co ordinate of nodes
-yco = [] #y co ordinate of nodes
+tn = int(input('Entre com o numero total de nos:')) #nos totais
+te = int(input('Entre com o numero total de elementos: ')) #elementos totais
+xco = [] #coordenada do nos x
+yco = [] #coordenada do nos y
 for i in range(tn):
     x = float(input('Entre com a coordenada x do no '+str(i+1)+' in mm : '))
     y = float(input('Entre com a coordenada y do no '+str(i+1)+' in mm : '))
@@ -19,12 +19,12 @@ for i in range(tn):
 A = int(200)
 E = float('210000')
 
-snofel = [] #start node of elements
-enofel = [] #end node of elements
-lenofel = [] #length of the element
-elcon = [] #constant of the element
-cosofel = [] #cos of element
-sinofel = [] #sin of element
+snofel = [] #no do comeco do membro
+enofel = [] #no final do membro
+lenofel = [] #comprimento do membro
+elcon = [] #constante do membro
+cosofel = [] #cos do membro
+sinofel = [] #sin do membro
 
 for i in range(te):  
     a = int(input('Entre com o no inicial da barra '+str(i+1)+' : '))
@@ -71,33 +71,33 @@ for i in range(te):
     #print(elstmat)
 
 
-gstmatmap = []                          ## Global stiffness matrix mapping, gstmatmap will be the sqare matrix of tn*
-for i in range(te):                     ## do this for each elements
-    m = snofel[i]*2                     ## taking the start node of element(i) and multiply by 2
-    n = enofel[i]*2                     ## taking the end node of element(i) and multiply by 2
-    add = [m-1, m, n-1, n]              ## Address of columns and rows of gstmatmap for elemet(i)
-                                            # if startnode is 1 and end node is 2 then add=[1,2,3,4]
-                                            # if startnode is 1 and end node is 3 then add=[1,2,5,6]
-    gmat = numpy.zeros((tn*2, tn*2))    ## global stiffness matrix loaded with zeros for element(i)
-    elmat = elstmat[i]                  ## taking the element stiffness matrix of element(i)
+gstmatmap = []                          ## Mapeamento da matriz de rigidez global, gstmatmap será a matriz quadrada de tn*
+for i in range(te):                     ## faça isso para cada elemento
+    m = snofel[i]*2                     ## pegando o nó inicial do elemento(i) e multiplicando por 2
+    n = enofel[i]*2                     ## pegando o nó final do elemento(i) e multiplicando por 2
+    add = [m-1, m, n-1, n]              ## Endereço de colunas e linhas de gstmatmap para elemet(i)
+                                            # se o nó inicial for 1 e o nó final for 2, adicione = [1,2,3,4]
+                                            # se o nó inicial for 1 e o nó final for 3, adicione = [1,2,5,6]
+    gmat = numpy.zeros((tn*2, tn*2))    ## matriz de rigidez global carregada com zeros para o elemento (i)
+    elmat = elstmat[i]                  ## tomando a matriz de rigidez do elemento (i)
     for j in range(4):                  
         for k in range(4):              
-            a = add[j]-1                ## addressing row of GST matrix for element(i)
-            b = add[k]-1                ## addressing column of GST matrix for element(i)
-            gmat[a,b] = elmat[j,k]      ## updating the values in GST matrix with EST matrix of element(i)
-    gstmatmap.append(gmat)              ## storing the resultant matrix in gstmatmap list
+            a = add[j]-1                ## linha de endereçamento da matriz GST para o elemento (i)
+            b = add[k]-1                ## coluna de endereçamento da matriz GST para o elemento (i)
+            gmat[a,b] = elmat[j,k]      ## atualizando os valores na matriz GST com a matriz EST do elemento(i)
+    gstmatmap.append(gmat)              ## armazenando a matriz resultante na lista gstmatmap
    # print('numpy around')
 #print(numpy.around(gmat, 3))
 
-GSM = numpy.zeros((tn*2, tn*2))         ## creating an empyty GSM matrix
+GSM = numpy.zeros((tn*2, tn*2))         ## criando uma matriz GSM vazia
 for mat in gstmatmap:
-    GSM = GSM+mat                       ## adding all the matrix in the gstmatmap list
-                                            # this will result in assembled stiffness matrix of the truss structure
+    GSM = GSM+mat                       ## adicionando toda a matriz na lista gstmatmap
+                                            # isso resultará na matriz de rigidez montada da estrutura de treliça
 
 #print('\nGlobal Stiffness Matrix of the Truss\n')
 #print(numpy.around(GSM, 3))
 
-#-----------------------Boundry condition and Loading---------------------#
+#-----------------------Condição de borda e carregamento---------------------#
 
 displist = []
 forcelist = []
@@ -117,7 +117,7 @@ for i in range(tn):
 print('\n\n________________Espcificacoes do suporte______________\n')
 
 dispmat = numpy.ones((tn*2,1))
-tsupn = int(input('Entre com o numero total de nos com suporte : ')) #total number of supported nodes
+tsupn = int(input('Entre com o numero total de nos com suporte : ')) #número total de nós suportados
 supcondition = ['Entre com o tipo do apoio:',
                 'F = Fixo',
                 'H = Horizontal',
@@ -125,16 +125,14 @@ supcondition = ['Entre com o tipo do apoio:',
 print('imprimindo')
 print(tsupn)
 for i in range(tsupn):
-    supn = int(input('\nEntre com o numero do no com suporte : ')) #supported node
+    supn = int(input('\nEntre com o numero do no com suporte : ')) #nó suportado
     for a in supcondition:
         print(a)
         
 
 
-    condition = str(input('\nEnter the condition of the support : '))
-
-    condition = str(input('\nEntre com a condicao do suporteEnter the condition of the support : '))
-    if condition in['P', 'p']:
+    condition = str(input('\nEntre com a condicao do suporte : '))
+    if condition in['F', 'f']:
         dispmat[supn*2-2, 0] = 0
         dispmat[supn*2-1, 0] = 0
     elif condition in['H', 'h']:
@@ -143,25 +141,25 @@ for i in range(tsupn):
         dispmat[supn*2-1, 0] = 0
     else:
         print('Por favor, insira entradas válidas')
-print('imprimindo dispmat')
-print(dispmat)
+#print('imprimindo dispmat')
+#print(dispmat)
 
 
 print('\n_________________Carga____________________\n')
 forcemat = numpy.zeros((tn*2,1))
-tlon = int(input('Entre com o numero total de nos com carga : ')) #total number of loaded nodes
+tlon = int(input('Entre com o numero total de nos com carga : ')) #número total de nós com carga
 
 for i in range(tlon):
-    lon = int(input('\nEntre com o numero do no com a carga : ')) #Loaded node
+    lon = int(input('\nEntre com o numero do no com a carga : ')) #nó da carga
     fx = float(input('Entre com a carga horizontal do no : '))
     fy = float(input('Entre com a carga vertical do no : '))
     forcemat[lon*2-2, 0] = fx
     forcemat[lon*2-1, 0] = fy
 
-print(forcemat)    
+#print(forcemat)    
 
 
-###_________________Matrix Reduction_________________###
+###_________________Redução de matriz_________________###
 
 
 rcdlist = []
@@ -169,13 +167,13 @@ for i in range(tn*2):
     if dispmat[i,0] == 0:
         rcdlist.append(i)
 
-rrgsm = numpy.delete(GSM, rcdlist, 0) #row reduction
-crgsm = numpy.delete(rrgsm, rcdlist, 1) #column reduction
-rgsm = crgsm #reduced global stiffness matrix
-rforcemat = numpy.delete(forcemat, rcdlist, 0) #reduced force mat
-rdispmat = numpy.delete(dispmat, rcdlist, 0) #reduced disp mat
+rrgsm = numpy.delete(GSM, rcdlist, 0) #redução de linha
+crgsm = numpy.delete(rrgsm, rcdlist, 1) #redução de coluna
+rgsm = crgsm #matriz de rigidez global reduzida
+rforcemat = numpy.delete(forcemat, rcdlist, 0) #reducao mat forca
+rdispmat = numpy.delete(dispmat, rcdlist, 0) #reducao dis mat
 
-###_______________Solving____________________###
+###_______________Resolução____________________###
 
 dispresult = numpy.matmul(numpy.linalg.inv(rgsm), rforcemat)
 rin = 0
@@ -195,7 +193,7 @@ print(dispmat)
 print('\n\nMatriz de forca dos nos\n')
 print(forceresult)
 
-##____________________new co ordinates of nodes____________####
+##____________________nova coordenada dos nos____________####
 
 newxco = []
 newyco = []
@@ -208,7 +206,7 @@ for i in range(tn):
     newyco.append(l)
     count = count+1
 
-###____________________new length of memebers______________####
+###____________________novo comprimento dos membros______________####
     
 newlenofel = []
 for i in range(te):
@@ -223,7 +221,7 @@ for i in range(te):
 ##print(newlenofel)
 ##print(lenofel)
 
-###______________strain in elements_______________________###
+###______________tensão em elementos_______________________###
     
 numpy.set_printoptions(3, suppress=False)
 
@@ -236,7 +234,7 @@ print('\n\nTensao nos elementos')
 print(elstrain)
 numpy.set_printoptions(3, suppress=True)
 
-###__________________stress in elements______________________###
+###__________________estresse em elementos______________________###
 
 elstress = numpy.zeros((te,1))
 for i in range(te):
@@ -245,7 +243,7 @@ for i in range(te):
 print('\n\nEstresse nos elementos')
 print(elstress)
 
-###_________________Member forces____________________#########
+###_________________forças membros____________________#########
 
 eforce = numpy.zeros((te,1))
 for i in range(te):

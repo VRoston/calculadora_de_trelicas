@@ -75,6 +75,7 @@ entrylist=[]
 buttonlist=[]
 
 inputlist=[]
+rcdlist = []
 
 xco=[]
 yco=[]
@@ -350,7 +351,7 @@ def main():
         tsupn = int(tsupn1.get())
         print(tsupn)
         
-        dispmat = numpy.ones((tn*2,1))
+        
        
         linhas = linhas + 2
         
@@ -395,7 +396,7 @@ def main():
 
 
     def confirmar6():
-        global mat,lon, lon1, lon2 ,fx , fx1 ,fx1 , fy , fy1 , fy2, dispmat,  tlon1,condtion2, supn2, supn, condtion , sunp1 , condition1 ,x1 , mat , y1 , x2 , y2 , xcon , ycon , a , b , A , E , lq , linhas , cos , sin , snofel , enofel , lenofel , elcon , cosofel , sinofel , te , tn , b_inicial , b_final , inicial_barra , final_barra , elstmat , tsupn , supcondition , tsupn1,tlon1,tlon
+        global forcemat, mat,lon, lon1, lon2 ,fx , fx1 ,fx1 , fy , fy1 , fy2, dispmat,  tlon1,condtion2, supn2, supn, condtion , sunp1 , condition1 ,x1 , mat , y1 , x2 , y2 , xcon , ycon , a , b , A , E , lq , linhas , cos , sin , snofel , enofel , lenofel , elcon , cosofel , sinofel , te , tn , b_inicial , b_final , inicial_barra , final_barra , elstmat , tsupn , supcondition , tsupn1,tlon1,tlon
         tlon = int(tlon1.get())
         forcemat = numpy.zeros((tn*2,1))
         dispmat = numpy.ones((tn*2,1))
@@ -405,15 +406,16 @@ def main():
         for i in range(tsupn):
             supn.append(int(supn2[i].get()))      # esse funciona para pegar o valor da caixa de entrada
             condition.append((condtion2[i].get()))      # esse funciona para pegar o valor da caixa de entrada
-        if condition[i] in['F', 'f']:
-            dispmat[supn[i]*2-2, 0] = 0
-            dispmat[supn[i]*2-1, 0] = 0
-        elif condition[i] in['H', 'h']:
-            dispmat[supn[i]*2-2, 0] = 0
-        elif condition[i] in['V', 'v']:
-            dispmat[supn[i]*2-1, 0] = 0
+            
+        if condition in['F', 'f']:
+                dispmat[supn*2-2, 0] = 0
+                dispmat[supn*2-1, 0] = 0
+        elif condition in['H', 'h']:
+                dispmat[supn*2-2, 0] = 0
+        elif condition in['V', 'v']:
+                dispmat[supn*2-1, 0] = 0
         else:
-            print('Please enter valid entries')
+                print('Por favor, insira entradas válidas')
 
         linhas = linhas + 2
     
@@ -450,7 +452,7 @@ def main():
         global lon, lon1, lon2 ,fx , fx1 ,fx1 , fy , fy1 , fy2,   dispmat,  tlon1,condtion2, supn2
         global supn, condtion , sunp1 , condition1 ,x1 , mat , y1 , x2 , y2 , xcon , ycon 
         global a , b , A , E , lq , linhas , cos , sin , snofel , enofel , lenofel , elcon , cosofel , sinofel , te , tn
-        global b_inicial , b_final , inicial_barra , final_barra , elstmat , tsupn , supcondition , tsupn1, tlon, GSM,rdispmat,mat
+        global b_inicial , b_final , inicial_barra , final_barra , elstmat , tsupn , supcondition , tsupn1, tlon, GSM,rdispmat,mat,forcemat
         no_carga = len(lon2)
         
         forcemat = numpy.zeros((tn*2,1))
@@ -466,9 +468,8 @@ def main():
             forcemat[lon[i]*2-1, 0] = fy[i]
         print ('forcemat')
         print(forcemat)  
-        ##erro ele ta falando list index out of range para a lista fx e fy provavelmente
-
-        rcdlist = []
+     
+        global rcdlist
         for i in range(tn*2):
             if dispmat[i,0] == 0:
                 rcdlist.append(i)
@@ -481,22 +482,28 @@ def main():
 
         ###_______________Solving____________________###
 
+
         dispresult = numpy.matmul(numpy.linalg.inv(rgsm), rforcemat)
         rin = 0
         for i in range(tn*2):
             if dispmat[i,0] == 1:
                 dispmat[i,0] = dispresult[rin,0]
-                rin = rin+1
+                rin = rin + 1
+
+        # Adicionar uma pequena quantidade à diagonal de rgsm
+        epsilon = 1e-6  # Valor pequeno a ser adicionado à diagonal
+        numpy.fill_diagonal(rgsm, numpy.diagonal(rgsm) + epsilon)
+
         ##print(dispmat)
 
         forceresult = numpy.matmul(GSM, dispmat)
         ##print(forceresult)
 
-        print('\n\nGlobal Stiffness Matrix of the Truss\n')
+        print('\n\nMatriz de rigidez global da trelica\n')
         print(GSM)
-        print('\n\nDisplacement matrix of nodes\n')
+        print('\n\nMatriz de deslocamento dos nos\n')
         print(dispmat)
-        print('\n\nForce matrix of nodes\n')
+        print('\n\nMatriz de forca dos nos\n')
         print(forceresult)
 
         ##____________________new co ordinates of nodes____________####
@@ -534,9 +541,9 @@ def main():
         elstrain = numpy.zeros((te,1))
         for i in range(te):
             elstrain[i,0] = (newlenofel[i]-lenofel[i])/(lenofel[i])
-        print('\n***Positive is Tensile\nNegetive is Compressive***\n')
+        print('\n***Positivo e tracao\nNegativo e compressao***\n')
 
-        print('\n\nStrain in the elements')
+        print('\n\nTensao nos elementos')
         print(elstrain)
         numpy.set_printoptions(3, suppress=True)
 
@@ -546,7 +553,7 @@ def main():
         for i in range(te):
             elstress[i,0] = E * elstrain[i,0]
             
-        print('\n\nStress in the elements')
+        print('\n\nEstresse nos elementos')
         print(elstress)
 
         ###_________________Member forces____________________#########
@@ -555,7 +562,7 @@ def main():
         for i in range(te):
             eforce[i,0] = A * elstress[i,0]
 
-        print('\n\nForce in the element')
+        print('\n\nForca nos membros')
         print(eforce)
             
 

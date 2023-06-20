@@ -393,12 +393,13 @@ def main():
         tlon = int(tlon1.get())
         forcemat = numpy.zeros((tn*2,1))
         dispmat = numpy.ones((tn*2,1))
-        print('imprimindo')
-        print(tsupn)
+
+
+
         for i in range(tsupn):
             supn.append(int(supn2[i].get()))      # esse funciona para pegar o valor da caixa de entrada
             condition.append((condtion2[i].get()))      # esse funciona para pegar o valor da caixa de entrada
-        if condition[i] in['P', 'p']:
+        if condition[i] in['F', 'f']:
             dispmat[supn[i]*2-2, 0] = 0
             dispmat[supn[i]*2-1, 0] = 0
         elif condition[i] in['H', 'h']:
@@ -407,8 +408,11 @@ def main():
             dispmat[supn[i]*2-1, 0] = 0
         else:
             print('Please enter valid entries')
-    print('imprimindo dispmat')
-    print(dispmat)
+        print('imprimindo dispmat')
+        print(dispmat)
+        print('imprimindo')
+        print(tsupn)
+
     
     for i in range(tlon):
             lon = int(input('\nEnter the node number of Loading : ')) #Loaded node
